@@ -17,13 +17,13 @@ interface AuthorInfoProps {
 export default function AuthorInfo({ author }: AuthorInfoProps) {
   return (
     <div className="text-center p-6 max-w-2xl mx-auto">
-      <Image
+      {/* <Image
         src={author.avatar || "/placeholder.svg"}
         alt={author.name}
         width={150}
         height={150}
         className="rounded-full mx-auto mb-4 bg-white"
-      />
+      /> */}
       <h2 className="mb-6 text-6xl font-bold tracking-tighter sm:text-7xl lg:text-8xl font-bold text-gray-800 dark:text-white mb-2">
         {author.name}
       </h2>
