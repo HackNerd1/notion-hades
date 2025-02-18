@@ -58,6 +58,27 @@ export const recentPosts = [
     banner: "https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDcwfHxwcm9kdWN0fGVufDB8fHx8MTczNjEwODY5OHww&ixlib=rb-4.0.3&q=80&w=1440",
     tags: ["graphql", "api", "javascript"],
   },
+  {
+    id: 7,
+    title: "Building a Progressive Web App with React",
+    excerpt: "Discover how to create a fast and installable web application using React and Progressive Web App (PWA) features.",
+    banner: "https://images.unsplash.com/photo-1509695507497-903c140c43b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDE4fHxwcm9kdWN0fGVufDB8fHx8MTczNjEwODU5Nnww&ixlib=rb-4.0.3&q=80&w=1440",
+    tags: ["react", "pwa", "javascript"],
+  },
+  {
+    id: 8,
+    title: "Introduction to TypeScript",
+    excerpt: "Learn how to use TypeScript to write more robust and maintainable JavaScript code.",
+    banner: "https://images.unsplash.com/photo-1511401139252-f158d3209c17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDE2MXx8bGlmZXN0eWxlfGVufDB8fHx8MTczNjEwNjgxNXww&ixlib=rb-4.0.3&q=80&w=1440",
+    tags: ["typescript", "javascript", "programming"],
+  },
+  {
+    id: 9,
+    title: "Node.js for Beginners",
+    excerpt: "Explore the basics of Node.js and how to use it to build server-side applications.",
+    banner: "https://images.unsplash.com/photo-1509695507497-903c140c43b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDE4fHxwcm9kdWN0fGVufDB8fHx8MTczNjEwODU5Nnww&ixlib=rb-4.0.3&q=80&w=1440",
+    tags: ["nodejs", "javascript", "programming"],
+  },
 ]
 
 export const tags = [

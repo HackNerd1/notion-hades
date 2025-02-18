@@ -14,6 +14,14 @@ import { Title } from "@/components/title";
 import AboutUs from "@/components/aboutUs";
 import BlogPostList from "@/components/blogPostList";
 
+function scrollDown() {
+  const targetY = window.innerHeight;
+  window.scrollTo({
+    top: targetY,
+    behavior: "smooth",
+  });
+}
+
 export default function Home() {
   const { currentSection, setCurrentSection } = useSmoothScroll(2);
 
@@ -39,9 +47,9 @@ export default function Home() {
         <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
         </div>
-        <ScrollDownButton onClick={() => setCurrentSection((prev) => prev + 1)} />
+        <ScrollDownButton onClick={scrollDown} />
       </div>
-      <div className="min-h-screen max-h-screen p-12 h-full">
+      <div className="min-h-screen p-12">
         <Title title="Recent Posts">
           <LoadMoreButton></LoadMoreButton>
         </Title>
