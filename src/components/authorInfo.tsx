@@ -24,7 +24,7 @@ export default function AuthorInfo({ author }: AuthorInfoProps) {
         height={150}
         className="rounded-full mx-auto mb-4 bg-white"
       /> */}
-      <h2 className="mb-6 text-6xl font-bold tracking-tighter sm:text-7xl lg:text-8xl font-bold text-gray-800 dark:text-white mb-2">
+      <h2 className="text-6xl tracking-tighter sm:text-7xl lg:text-8xl font-bold text-gray-800 dark:text-white mb-2">
         {author.name}
       </h2>
       <p className="max-w-[600px] text-lg text-gray-400 sm:text-xl mb-4">{author.bio}</p>
