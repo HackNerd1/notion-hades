@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
+function getBannerStyle(url: string) {
+  return {
+    background: `url('${url}') center / cover no-repeat`,
+  };
+}
+
 export default function BlogPost() {
   const [post, setPost] = useState<any>(null);
   const [tableOfContents, setTableOfContents] = useState<any[]>([]);
@@ -85,16 +91,15 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="mx-auto p-12">
-      <Image
-        src={post.page.cover?.external?.url || "/placeholder.svg"}
-        alt={post.page.properties.Name.title[0]?.plain_text}
-        width={0}
-        height={0}
-        className="rounded-lg mb-8 w-[100%] max-h-80"
-      />
-      <article className="max-w-4xl m-auto">
-        <h1 className="text-4xl font-bold mb-4">{post.page.properties.Name.title[0]?.plain_text}</h1>
+    <div className="mx-auto">
+      <section className="px-6">
+        <figure
+          className={`aspect-[4/1] min-h-64 w-full max-w-6xl m-auto rounded-2xl mb-12 `}
+          style={getBannerStyle(post.page.cover?.external?.url || "/placeholder.svg")}
+        ></figure>
+      </section>
+      <article className="max-w-4xl m-auto px-12">
+        <h1 className="text-4xl font-bold mb-8">{post.page.properties.Name.title[0]?.plain_text}</h1>
 
         <div className=" flex flex-col md:flex-row gap-8">
           <div className="md:w-3/4">
@@ -103,7 +108,7 @@ export default function BlogPost() {
             ))}
           </div>
 
-          <div className="md:w-1/4">
+          <div className="opacity-100 md:w-1/4 ">
             <div className="sticky top-8">
               <h2 className="text-xl font-bold mb-4">Table of Contents</h2>
               <ul>

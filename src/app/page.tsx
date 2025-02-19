@@ -60,7 +60,7 @@ export default function Home() {
         </div>
         <ScrollDownButton onClick={scrollDown} />
       </div>
-      <div className="min-h-screen p-12">
+      <div className="min-h-screen max-w-6xl m-auto p-12">
         <Title title="Recent Posts">
           <LoadMoreButton></LoadMoreButton>
         </Title>

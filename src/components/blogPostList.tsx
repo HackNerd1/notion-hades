@@ -7,7 +7,7 @@ interface BlogPostListProps {
 
 export default function BlogPostList({ posts }: BlogPostListProps) {
   return (
-    <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-6 cursor-pointer mb-8">
+    <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2   lg:grid-cols-3 gap-6 cursor-pointer mb-8">
       {posts.map((post) => (
         <Link href={`/post/${post.id}`} key={post.id}>
           <article className="group relative overflow-hidden rounded-lg shadow-lg">
