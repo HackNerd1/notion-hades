@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 import HackerBackground from "@/components/hackerBackground";
 import AuthorInfo from "@/components/authorInfo";
-import { aboutUs, author, recentPosts, siteInfo, tags } from "@/mock/sampleData";
+import { aboutUs, author, siteInfo, tags } from "@/mock/sampleData";
 import ThemeToggle from "@/components/themeToggle";
 import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
@@ -13,6 +13,8 @@ import LoadMoreButton from "@/components/loadMoreButton";
 import { Title } from "@/components/title";
 import AboutUs from "@/components/aboutUs";
 import BlogPostList from "@/components/blogPostList";
+import { notionApiGetPublishedBlogPosts } from "@/apis/notionApi";
+import { PostModel } from "../models/notionModels";
 
 function scrollDown() {
   const targetY = window.innerHeight;
@@ -24,6 +26,15 @@ function scrollDown() {
 
 export default function Home() {
   const { currentSection, setCurrentSection } = useSmoothScroll(2);
+  const [posts, setPosts] = useState<PostModel[]>([]);
+  useEffect(() => {
+    async function fetchPosts() {
+      const result = await notionApiGetPublishedBlogPosts();
+
+      setPosts(result);
+    }
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
     const targetY = window.innerHeight * currentSection;
@@ -33,8 +44,8 @@ export default function Home() {
     });
   }, [currentSection]);
 
-  const carouselPosts = recentPosts.slice(0, 3);
-  const listPosts = recentPosts.slice(3);
+  const carouselPosts = posts.slice(0, 3);
+  const listPosts = posts.slice(3);
 
   return (
     <>

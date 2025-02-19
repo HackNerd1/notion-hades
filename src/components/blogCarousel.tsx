@@ -2,17 +2,10 @@
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-interface Post {
-  id: number;
-  title: string;
-  excerpt: string;
-  banner: string;
-  tags: string[];
-}
+import { PostModel } from "@/models/notionModels";
 
 interface BlogCarouselProps {
-  posts: Post[];
+  posts: PostModel[];
 }
 
 function getSlideStyle(index: number) {
@@ -63,7 +56,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   };
 
   useEffect(() => {
-    autoSlide(setCurrentIndex, posts.length);
+    // autoSlide(setCurrentIndex, posts.length);
     const slideNode = slideRef.current;
     slideNode?.addEventListener("mouseenter", clearAutoSlide);
     slideNode?.addEventListener("mouseleave", () => autoSlide(setCurrentIndex, posts.length));
@@ -72,7 +65,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
       slideNode?.removeEventListener("mouseenter", clearAutoSlide);
       slideNode?.removeEventListener("mouseenter", () => autoSlide(setCurrentIndex, posts.length));
     };
-  }, []);
+  }, [posts]);
 
   return (
     <div className="relative shadow-md h-[60vh] rounded-3xl overflow-hidden mb-8 group">
@@ -83,18 +76,18 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
       >
         {posts.map((post, index) => (
           <div key={post.id} className={`relative basis-[100%] grow-1 shrink-0 h-full rounded-3xl overflow-hidden`}>
-            <Image src={post.banner || "/placeholder.svg"} alt={post.title} fill objectFit="cover" />
+            <Image src={post.cover || "/placeholder.svg"} alt={post.title} fill objectFit="cover" />
             <div className="absolute top-0 left-0 bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white w-full h-full">
               <div className="absolute bottom-0 left-0 p-12" style={getSlideDesStyle(currentIndex, index)}>
                 <h3 className="text-5xl font-semibold mb-4 text-gray-50">{post.title}</h3>
-                <p className="text-xl mb-2">{post.excerpt}</p>
+                {/* <p className="text-xl mb-2">{post.excerpt}</p> */}
                 {post.tags.map((tag, index) => (
                   <a
                     key={index}
                     href=""
                     className="text-sm text-[#33334c] bg-[#ECECEC] px-4 py-1 rounded-md text-center mr-4"
                   >
-                    {tag}
+                    {tag.name}
                   </a>
                 ))}
               </div>
@@ -104,14 +97,14 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
       </div>
       <button
         onClick={prevSlide}
-        disabled={currentIndex === 0}
+        disabled={!posts.length || currentIndex === 0}
         className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-[#33334c] opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         &#10094;
       </button>
       <button
         onClick={nextSlide}
-        disabled={currentIndex === posts.length - 1}
+        disabled={!posts.length || currentIndex === posts.length - 1}
         className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[#33334c] opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         &#10095;
