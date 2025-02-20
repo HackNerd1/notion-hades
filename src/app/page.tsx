@@ -15,6 +15,7 @@ import AboutUs from "@/components/aboutUs";
 import BlogPostList from "@/components/blogPostList";
 import { notionApiGetPublishedBlogPosts } from "@/apis/notionApi";
 import { PostModel } from "../models/notionModels";
+import Skeleton from "@/components/skeleton";
 
 function scrollDown() {
   const targetY = window.innerHeight;
@@ -27,11 +28,16 @@ function scrollDown() {
 export default function Home() {
   const { currentSection, setCurrentSection } = useSmoothScroll(2);
   const [posts, setPosts] = useState<PostModel[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchPosts() {
-      const result = await notionApiGetPublishedBlogPosts();
-
-      setPosts(result);
+      try {
+        const result = await notionApiGetPublishedBlogPosts();
+        setPosts(result);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
     }
     fetchPosts();
   }, []);
@@ -64,8 +70,8 @@ export default function Home() {
         <Title title="Recent Posts">
           <LoadMoreButton></LoadMoreButton>
         </Title>
-        <BlogCarousel posts={carouselPosts}></BlogCarousel>
-        <BlogPostList posts={listPosts}></BlogPostList>
+        {loading ? <Skeleton type="carousel" /> : <BlogCarousel posts={carouselPosts}></BlogCarousel>}
+        {loading ? <Skeleton type="post" count={6} /> : <BlogPostList posts={listPosts}></BlogPostList>}
 
         <Title title="Tags">
           <LoadMoreButton></LoadMoreButton>

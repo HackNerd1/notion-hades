@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import Skeleton from "@/components/skeleton";
 
 function getBannerStyle(url: string) {
   return {
@@ -36,7 +37,15 @@ export default function BlogPost() {
     }
   }, [id]);
 
-  if (!post) return <div>Loading...</div>;
+  if (!post) {
+    return (
+      <div className="px-6 w-full flex justify-center items-center">
+        <div className="max-w-6xl w-full">
+          <Skeleton type="page"></Skeleton>
+        </div>
+      </div>
+    );
+  }
 
   const renderBlock = (block: any) => {
     switch (block.type) {

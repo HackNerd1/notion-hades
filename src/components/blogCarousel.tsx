@@ -29,9 +29,10 @@ function getSlideDesStyle(currentIndex: number, index: number) {
   };
 }
 
-let timer: NodeJS.Timeout;
+let timer: NodeJS.Timeout | null;
 
 function autoSlide(setCurrentIndex: Dispatch<SetStateAction<number>>, length: number) {
+  if (timer) return;
   timer = setTimeout(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % length);
     autoSlide(setCurrentIndex, length);
@@ -39,7 +40,10 @@ function autoSlide(setCurrentIndex: Dispatch<SetStateAction<number>>, length: nu
 }
 
 function clearAutoSlide() {
-  clearTimeout(timer);
+  if (timer) {
+    clearTimeout(timer);
+    timer = null;
+  }
 }
 
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
@@ -56,7 +60,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
   };
 
   useEffect(() => {
-    // autoSlide(setCurrentIndex, posts.length);
+    autoSlide(setCurrentIndex, posts.length);
     const slideNode = slideRef.current;
     slideNode?.addEventListener("mouseenter", clearAutoSlide);
     slideNode?.addEventListener("mouseleave", () => autoSlide(setCurrentIndex, posts.length));
