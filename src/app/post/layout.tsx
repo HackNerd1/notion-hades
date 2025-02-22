@@ -9,7 +9,7 @@ interface PostLayputProp {
 export default function PostLayput(props: PostLayputProp) {
   return (
     <>
-      <header className="px-12 py-2 w-full sticky top-0 h-14 text-md bg-[#1c222b]">
+      <header className="px-12 py-2 w-full h-14 text-md bg-[#1c222b]">
         <div className="max-w-6xl m-auto h-full flex justify-between items-center">
           <Link href="/">Hacknerd</Link>
           <Search></Search>

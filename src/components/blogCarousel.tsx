@@ -2,10 +2,12 @@
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { PostModel } from "@/models/notionModels";
+import Link from "next/link";
+import { NotionTag } from "./notion/notionTag";
+import { PageModel } from "@/models/notion.model";
 
 interface BlogCarouselProps {
-  posts: PostModel[];
+  posts: PageModel[];
 }
 
 function getSlideStyle(index: number) {
@@ -80,19 +82,17 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
       >
         {posts.map((post, index) => (
           <div key={post.id} className={`relative basis-[100%] grow-1 shrink-0 h-full rounded-3xl overflow-hidden`}>
-            <Image src={post.cover || "/placeholder.svg"} alt={post.title} fill objectFit="cover" />
+            <Link href={`/post/${post.id}`}>
+              <Image src={post.cover || "/placeholder.svg"} alt={post.title} fill objectFit="cover" />
+            </Link>
             <div className="absolute top-0 left-0 bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white w-full h-full">
               <div className="absolute bottom-0 left-0 p-12" style={getSlideDesStyle(currentIndex, index)}>
-                <h3 className="text-5xl font-semibold mb-4 text-gray-50">{post.title}</h3>
+                <Link href={`/post/${post.id}`}>
+                  <h3 className="text-5xl font-semibold mb-4 text-gray-50">{post.title}</h3>
+                </Link>
                 {/* <p className="text-xl mb-2">{post.excerpt}</p> */}
-                {post.tags.map((tag, index) => (
-                  <a
-                    key={index}
-                    href=""
-                    className="text-sm text-[#33334c] bg-[#ECECEC] px-4 py-1 rounded-md text-center mr-4"
-                  >
-                    {tag.name}
-                  </a>
+                {post.tags.map((tag, i) => (
+                  <NotionTag {...tag} key={i}></NotionTag>
                 ))}
               </div>
             </div>

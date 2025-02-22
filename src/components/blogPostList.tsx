@@ -1,8 +1,8 @@
-import { PostModel } from "@/models/notionModels";
+import { PageModel } from "@/models/notion.model";
 import Image from "next/image";
 import Link from "next/link";
 interface BlogPostListProps {
-  posts: PostModel[];
+  posts: PageModel[];
 }
 
 export default function BlogPostList({ posts }: BlogPostListProps) {

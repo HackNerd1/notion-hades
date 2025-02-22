@@ -6,6 +6,38 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  /* tag */
+  --tag-gray: rgb(69, 69, 69);
+  --tag-red: rgb(114, 52, 51);
+  --tag-blue: rgb(44, 81, 103);
+  --tag-green: rgb(41, 95, 68);
+  --tag-yellow: rgb(143, 107, 52);
+  --tag-brown: rgb(97, 60, 44);
+  --tag-orange: rgb(119, 71, 30);
+  --tag-purple: rgb(73, 47, 99);
+  --tag-pink: rgb(103, 45, 73);
+  --tag-hover: rgb(255, 255, 255, 0.1);
+  --tag-code-block: rgb(28, 31, 36);
+
+  /* border */
+  --border-color: rgba(153, 153, 153, 0.3);
+
+  /* text */
+  --text-gray: rgb(121, 121, 121);
+  --text-red: rgb(158, 66, 65);
+  --text-blue: rgb(51, 132, 178);
+  --text-green: rgb(82, 158, 114);
+  --text-yellow: rgb(202, 152, 77);
+  --text-brown: rgb(186, 133, 111);
+  --text-orange: rgb(191, 121, 70);
+  --text-purple: rgb(157, 104, 211);
+  --text-pink: rgb(209, 87, 150);
+  --text-default: rgb(183, 183, 183);
+  --text-title-default: rgb(213, 213, 213);
+
+  /* scroll-bar */
+  --scroll-bar-color: rgb(139, 139, 139);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,7 +83,15 @@ html {
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
+  background-color: transparent;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-color);
+  border-radius: 1rem;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
