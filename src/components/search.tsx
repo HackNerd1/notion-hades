@@ -1,4 +1,4 @@
-import { SearchIcon } from "@/icons/search";
+import { IconSearch } from "@/icons/search";
 
 /*
  * @Descripttion:
@@ -10,8 +10,8 @@ import { SearchIcon } from "@/icons/search";
  */
 export function Search() {
   return (
-    <button className="transition-all duration-300 hover:bg-[#282828] h-full text-gray-400 flex gap-4 items-center rounded-lg px-3 text-md">
-      <SearchIcon size={16}></SearchIcon>
+    <button className="transition-all duration-300 bg-gray-800 hover:bg-gray-700 hover:text-white h-full text-gray-400 flex gap-4 items-center rounded-lg px-3 text-md">
+      <IconSearch size={16}></IconSearch>
     </button>
   );
 }

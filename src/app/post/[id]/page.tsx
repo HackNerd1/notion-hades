@@ -39,7 +39,7 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="px-6 w-full flex justify-center items-center">
+      <div className="px-6 w-full h-full flex justify-center items-center">
         <div className="max-w-6xl w-full">
           <Skeleton type="page"></Skeleton>
         </div>

@@ -16,13 +16,13 @@ export class PageModel extends ModelFactory<PageModel, PageModel> {
 
   static createEntityFromResponse(data: DatabaseObjectResponse): PageModel {
     return this.createEntity({
-      title: data.properties.Name.title[0].plain_text,
+      title: data.properties.Name?.title[0].plain_text || data.properties.title?.title[0].plain_text,
       id: data.id,
-      icon: data.icon?.emoji,
-      cover: data.cover?.external.url,
-      publishDate: dateUtilsFormateDate(data.properties.Published.date.start, "yyyy/MM/dd HH:mm"),
+      icon: data.icon?.emoji || data.icon?.file?.url,
+      cover: data.cover?.external?.url || data.cover?.file?.url,
+      publishDate: dateUtilsFormateDate(data.properties.Published?.date.start, "yyyy/MM/dd HH:mm"),
       // excerpt: data.properties.excerpt,
-      tags: data.properties.Tags.multi_select.map((item: any) => TagModel.createEntity(item)),
+      tags: data.properties.Tags?.multi_select.map((item: any) => TagModel.createEntity(item)),
     });
   }
 }

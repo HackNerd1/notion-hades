@@ -1,13 +1,15 @@
+import { NotionDataBaseRequest } from "@/interfaces/notion.interface";
 import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const databaseId = process.env.NOTION_DATABASE_ID;
+const homePageId = process.env.NOTION_HOME_PAGE_ID;
 
-export async function getPublishedBlogPosts() {
-  // await notionAPI.getPage(pageId!)
+export async function notionLibGetPublishedBlogPosts(param?: NotionDataBaseRequest) {
   return await notion.databases.query({
     database_id: databaseId!,
-    page_size: 10,
+    start_cursor: param?.nextCursor,
+    page_size: 9,
     filter: {
       property: "Public",
       checkbox: {
@@ -23,7 +25,7 @@ export async function getPublishedBlogPosts() {
   });
 }
 
-export async function getBlogPost(pageId: string) {
+export async function notionLibGetPost(pageId: string) {
   const response = await notion.pages.retrieve({ page_id: pageId });
   const blocks = await notion.blocks.children.list({
     block_id: pageId,
@@ -34,4 +36,18 @@ export async function getBlogPost(pageId: string) {
     page: response,
     blocks: blocks.results,
   };
+}
+
+// 获取页面
+export async function notionLibGetPage(pageId: string) {
+  return await notion.pages.retrieve({ page_id: pageId });
+}
+
+// 获取页面
+export async function notionLibGetHomePage() {
+  if (homePageId) {
+    return await notion.pages.retrieve({ page_id: homePageId });
+  } else {
+    throw new Error("Missing enviroment variable NOTION_HOME_PAGE_ID");
+  }
 }

@@ -38,6 +38,10 @@
 
   /* scroll-bar */
   --scroll-bar-color: rgb(139, 139, 139);
+
+  /* button */
+  --button-color-default: rgb(28, 31, 36);
+  --button-color-default-hover: rgba(28, 31, 36, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -98,4 +102,8 @@ html {
 body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+svg {
+  display: inline-block;
 }

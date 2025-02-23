@@ -1,19 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 import HackerBackground from "@/components/hackerBackground";
 import AuthorInfo from "@/components/authorInfo";
-import { aboutUs, author, siteInfo, tags } from "@/mock/sampleData";
+import { aboutUs, author, siteInfo } from "@/mock/sampleData";
 import ThemeToggle from "@/components/themeToggle";
 import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
-import TagList from "@/components/tagList";
 import LoadMoreButton from "@/components/loadMoreButton";
 import { Title } from "@/components/title";
 import AboutUs from "@/components/aboutUs";
 import BlogPostList from "@/components/blogPostList";
-import { notionApiGetPublishedBlogPosts } from "@/apis/notion-apis";
+import { notionApiGetHomePage, notionApiGetPublishedBlogPosts } from "@/apis/notion-apis";
 import Skeleton from "@/components/skeleton";
 import { PageModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
@@ -28,21 +27,50 @@ function scrollDown() {
 
 export default function Home() {
   const { currentSection, setCurrentSection } = useSmoothScroll(2);
-  const [posts, setPosts] = useState<PageModel[]>([]);
+  const [carouselPosts, setCarouselPosts] = useState<PageModel[]>([]);
+  const [listPosts, setListPosts] = useState<PageModel[]>([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const result = await notionApiGetPublishedBlogPosts();
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [nextCursor, setNextCursor] = useState<string>();
 
-        setPosts(result);
-      } catch (error) {
-        console.error(error);
-      } finally {
+  const fetchPosts = async (loadMore = false) => {
+    try {
+      if (loadMore) {
+        setSearchLoading(true);
+      }
+
+      const { results, hasMore, nextCursor: next } = await notionApiGetPublishedBlogPosts({ nextCursor: nextCursor });
+
+      if (loadMore) {
+        setListPosts(listPosts.concat(results));
+      } else {
+        setCarouselPosts(results.slice(0, 3));
+        setListPosts(results.slice(3));
+      }
+      setNextCursor(hasMore ? next : undefined);
+    } catch (error: any) {
+      console.error(error);
+    } finally {
+      if (loadMore) {
+        setSearchLoading(false);
+      } else {
         setLoading(false);
       }
     }
+  };
+
+  const fetchHomePage = async () => {
+    const result = await notionApiGetHomePage();
+    console.log(result);
+  };
+
+  const eventHandlerLoadMore = useCallback(() => {
+    fetchPosts(true);
+  }, [nextCursor]);
+
+  useEffect(() => {
     fetchPosts();
+    fetchHomePage();
   }, []);
 
   useEffect(() => {
@@ -52,10 +80,6 @@ export default function Home() {
       behavior: "smooth",
     });
   }, [currentSection]);
-
-  const carouselPosts = posts.slice(0, 3);
-  const listPosts = posts.slice(3);
-
   return (
     <>
       <div className="min-h-screen relative h-full">
@@ -70,18 +94,16 @@ export default function Home() {
         <ScrollDownButton onClick={scrollDown} />
       </div>
       <div className="min-h-screen max-w-6xl m-auto p-12">
-        <Title title="Recent Posts">
-          <LoadMoreButton></LoadMoreButton>
-        </Title>
+        <Title title="Recent Posts"></Title>
         {loading ? <Skeleton type="carousel" /> : <BlogCarousel posts={carouselPosts}></BlogCarousel>}
         {loading ? <Skeleton type="post" count={6} /> : <BlogPostList posts={listPosts}></BlogPostList>}
-
-        {/* <NotionDivider /> */}
-        {/* <Title title="Tags">
-          <LoadMoreButton></LoadMoreButton>
-        </Title>
-        <TagList tags={tags}></TagList> */}
-
+        <div className="text-center">
+          <LoadMoreButton
+            loading={searchLoading}
+            hasMore={!!nextCursor}
+            onClick={eventHandlerLoadMore}
+          ></LoadMoreButton>
+        </div>
         <NotionDivider />
         <Title title="About Us"></Title>
         <AboutUs content={aboutUs}></AboutUs>

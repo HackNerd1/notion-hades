@@ -1,4 +1,4 @@
-import { IconPropsModel } from "./icon.model";
+import { IconPropsModel } from "../models/icon.model";
 
 export function Zhihu(props = new IconPropsModel()) {
   return (

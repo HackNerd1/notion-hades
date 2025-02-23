@@ -1,14 +1,14 @@
-import { NextResponse } from "next/server"
-import { getPublishedBlogPosts } from "@/lib/notion"
+import { NextRequest, NextResponse } from "next/server";
+import { notionLibGetPublishedBlogPosts } from "@/lib/notion";
 
-export async function GET() {
+export async function POST(request: NextRequest) {
   try {
-    const posts = await getPublishedBlogPosts()
+    const body = await request.json();
+    const posts = await notionLibGetPublishedBlogPosts(body);
 
-    return NextResponse.json(posts)
+    return NextResponse.json(posts);
   } catch (error) {
-    console.error("Error fetching blog posts:", error)
-    throw NextResponse.json({ body: "Error fetching blog posts" }, { status: 500 })
+    console.error("Error fetching blog posts:", error);
+    throw NextResponse.json({ body: "Error fetching blog posts" }, { status: 500 });
   }
 }
-

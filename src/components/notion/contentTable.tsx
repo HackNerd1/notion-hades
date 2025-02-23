@@ -18,9 +18,7 @@ export function ContentTable(props: ContentTableProps) {
   return (
     <div className="sticky top-8">
       <h2 className="font-bold mb-4 flex items-center">
-        <span className="mr-2">
-          <IconBars size={16} />
-        </span>
+        <IconBars size={20} classNames="mr-2" />
         Contents
       </h2>
       <ul className="relative">

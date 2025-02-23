@@ -1,3 +1,4 @@
+import { PageModel } from "@/models/notion.model";
 import { GetPageResponse, ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export interface PageResponse {
@@ -32,3 +33,13 @@ export type NotionColorType =
   | "purple"
   | "pink"
   | "default";
+
+export interface NotionDataBase {
+  hasMore: boolean;
+  results: PageModel[];
+  nextCursor: string;
+}
+
+export interface NotionDataBaseRequest {
+  nextCursor?: string;
+}
