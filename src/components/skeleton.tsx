@@ -3,12 +3,12 @@
  * @version: 0.0.1
  * @Author: Hansel
  * @Date: 2025-02-20 22:47:12
- * @LastEditors: Hansel
+ * @LastEditors: Please set LastEditors
  * @LastEditTime: 2025-02-20 23:46:47
  */
 interface SkeletonProps {
   count?: number;
-  type: "carousel" | "post" | "page";
+  type?: "carousel" | "post" | "page" | "image";
 }
 
 export default function Skeleton({ count = 1, type }: SkeletonProps) {
@@ -41,6 +41,14 @@ export default function Skeleton({ count = 1, type }: SkeletonProps) {
             <div className="h-2 bg-gray-700/50 rounded-full w-16" />
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (type === "image") {
+    return (
+      <div className="w-full h-full bg-gray-800/50 rounded-xl overflow-hidden">
+        <div className="w-full h-full bg-gray-700/50 animate-pulse"></div>
       </div>
     );
   }

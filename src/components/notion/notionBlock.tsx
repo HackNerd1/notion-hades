@@ -1,9 +1,9 @@
 import { BlockModel } from "@/models/notion.model";
 import NotionRichText from "./notionRichText";
-import Image from "next/image";
 import { NotionDivider } from "./notionDivider";
 import { NotionCodeBlock } from "./notionCodeBlock";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { SkeletonImage } from "../skeletonImage";
 
 export function NotionBlock(props: BlockModel) {
   const { type, id, richText, childrens, caption, icon, checked, url, language } = props;
@@ -96,7 +96,7 @@ export function NotionBlock(props: BlockModel) {
       const imgCaption = caption ? caption[0]?.content : "";
       return (
         <figure className="mb-4">
-          <Image
+          <SkeletonImage
             src={url || "/placeholder.svg"}
             alt={imgCaption || "image"}
             width={700}

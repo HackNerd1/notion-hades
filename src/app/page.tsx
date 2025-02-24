@@ -102,6 +102,7 @@ export default function Home() {
             loading={searchLoading}
             hasMore={!!nextCursor}
             onClick={eventHandlerLoadMore}
+            className="mb-2"
           ></LoadMoreButton>
         </div>
         <NotionDivider />

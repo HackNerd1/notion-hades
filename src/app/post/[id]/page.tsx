@@ -10,6 +10,7 @@ import { notionApiGetPostPage } from "@/apis/notion-apis";
 import { NotionTag } from "@/components/notion/notionTag";
 import { PostModel, TocModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
+import { SkeletonImage } from "@/components/skeletonImage";
 
 function getBannerStyle(url: string) {
   return {
@@ -50,10 +51,14 @@ export default function BlogPost() {
   return (
     <div className="mx-auto">
       <section className="px-6">
-        <figure
-          className={`aspect-[4/1] min-h-64 w-full max-w-6xl m-auto rounded-2xl mb-12 `}
-          style={getBannerStyle(post.page.cover || "/placeholder.svg")}
-        ></figure>
+        <figure className={`aspect-[4/1] min-h-64 w-full max-w-6xl m-auto rounded-2xl mb-12 `}>
+          <SkeletonImage
+            src={post.page.cover || "/placeholder.svg"}
+            fill
+            alt="blog cover"
+            imageClassName="object-cover"
+          ></SkeletonImage>
+        </figure>
       </section>
       <article className="max-w-4xl m-auto px-12">
         <h1 className="text-4xl font-bold mb-4">

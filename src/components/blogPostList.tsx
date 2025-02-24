@@ -13,7 +13,12 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
           <article>
             {/* Main image */}
             <div className="relative aspect-[6/3] w-full group-hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg overflow-hidden">
-              <Image src={post.cover || "/placeholder.svg"} alt={post.title || "blog cover"} fill objectFit="cover" />
+              <Image
+                src={post.cover || "/placeholder.svg"}
+                alt={post.title || "blog cover"}
+                fill
+                className="object-cover"
+              />
               {/* Overlay gradient */}
               <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-transparent via-black/20 to-black/80" />
 

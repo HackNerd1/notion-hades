@@ -1,12 +1,12 @@
 import { IconLoading } from "@/icons/loading";
 
-interface LoadMoreButtonProps {
+interface LoadMoreButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   hasMore?: boolean;
   onClick?: () => any;
   loading?: boolean;
 }
 
-export default function LoadMoreButton({ hasMore, onClick, loading }: LoadMoreButtonProps) {
+export default function LoadMoreButton({ hasMore, onClick, loading, className, ...rest }: LoadMoreButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -15,7 +15,9 @@ export default function LoadMoreButton({ hasMore, onClick, loading }: LoadMoreBu
         text-md rounded-md text-white 
         hover:bg-gray-700 bg-[var(--button-color-default)]
         disabled:cursor-not-allowed disabled:pointer-events-none
-        px-6 py-1 transition duration-300`}
+        px-6 py-1 transition duration-300
+        ${className}`}
+      {...rest}
     >
       {hasMore ? "More" : "No More"}
       {loading && <IconLoading size={24} color="#fff" classNames="animate-spin ml-1"></IconLoading>}
