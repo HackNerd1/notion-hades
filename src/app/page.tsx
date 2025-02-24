@@ -10,12 +10,11 @@ import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
 import LoadMoreButton from "@/components/loadMoreButton";
 import { Title } from "@/components/title";
-import AboutUs from "@/components/aboutUs";
 import BlogPostList from "@/components/blogPostList";
 import { notionApiGetHomePage, notionApiGetPublishedBlogPosts } from "@/apis/notion-apis";
 import Skeleton from "@/components/skeleton";
 import { PageModel } from "@/models/notion.model";
-import { NotionDivider } from "@/components/notion/notionDivider";
+import { Search } from "@/components/search";
 
 function scrollDown() {
   const targetY = window.innerHeight;
@@ -26,7 +25,6 @@ function scrollDown() {
 }
 
 export default function Home() {
-  const { currentSection, setCurrentSection } = useSmoothScroll(2);
   const [carouselPosts, setCarouselPosts] = useState<PageModel[]>([]);
   const [listPosts, setListPosts] = useState<PageModel[]>([]);
   const [loading, setLoading] = useState(true);
@@ -73,13 +71,13 @@ export default function Home() {
     fetchHomePage();
   }, []);
 
-  useEffect(() => {
-    const targetY = window.innerHeight * currentSection;
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth",
-    });
-  }, [currentSection]);
+  // useEffect(() => {
+  //   const targetY = window.innerHeight * currentSection;
+  //   window.scrollTo({
+  //     top: targetY,
+  //     behavior: "smooth",
+  //   });
+  // }, [currentSection]);
   return (
     <>
       <div className="min-h-screen relative h-full">
@@ -94,7 +92,9 @@ export default function Home() {
         <ScrollDownButton onClick={scrollDown} />
       </div>
       <div className="min-h-screen max-w-6xl m-auto p-12">
-        <Title title="Recent Posts"></Title>
+        <Title title="Recent Posts">
+          <Search></Search>
+        </Title>
         {loading ? <Skeleton type="carousel" /> : <BlogCarousel posts={carouselPosts}></BlogCarousel>}
         {loading ? <Skeleton type="post" count={6} /> : <BlogPostList posts={listPosts}></BlogPostList>}
         <div className="text-center">
@@ -105,9 +105,9 @@ export default function Home() {
             className="mb-2"
           ></LoadMoreButton>
         </div>
-        <NotionDivider />
-        <Title title="About Us"></Title>
-        <AboutUs content={aboutUs}></AboutUs>
+        {/* <NotionDivider /> */}
+        {/* <Title title="About Us"></Title>
+        <AboutUs content={aboutUs}></AboutUs> */}
       </div>
     </>
   );

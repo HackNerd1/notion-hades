@@ -55,7 +55,7 @@ export default function HackerBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
+    canvas.width = document.body.clientWidth;
     canvas.height = window.innerHeight;
 
     const columns = canvas.width / 20;
