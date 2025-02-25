@@ -1,3 +1,4 @@
+"use client";
 import { useCopy } from "@/hooks/useCopy";
 import { IconSparkles } from "@/icons/sparkles";
 import { Prism as SyntaxHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";

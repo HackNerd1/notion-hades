@@ -1,13 +1,14 @@
-import { RichTextkModel } from "@/models/notion.model";
+"use client";
+import { RichTextModel } from "@/models/notion.model";
 import { classNames } from "@/utils/main.utils";
 import Link from "next/link";
 
 interface RichTextProps {
-  richText?: RichTextkModel[];
+  richText?: RichTextModel[];
   isTitle?: boolean;
 }
 
-function renderRichTextStyle(data: RichTextkModel, isTitle = false) {
+function renderRichTextStyle(data: RichTextModel, isTitle = false) {
   if (isTitle) {
     return {
       color: data.color === "default" ? `var(--text-title-default)` : `var(--text-${data.color})`,

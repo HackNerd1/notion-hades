@@ -51,3 +51,46 @@ export async function notionLibGetHomePage() {
     throw new Error("Missing enviroment variable NOTION_HOME_PAGE_ID");
   }
 }
+
+// 搜索页面
+export async function notionLibSearchPosts(query: string) {
+  console.log({ query });
+
+  const response = await notion.databases.query({
+    database_id: databaseId!,
+    filter: {
+      and: [
+        {
+          property: "Public",
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          or: [
+            {
+              property: "Name",
+              title: {
+                contains: query,
+              },
+            },
+            {
+              property: "Description",
+              rich_text: {
+                contains: query,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "Published",
+        direction: "descending",
+      },
+    ],
+  })
+
+  return response
+}

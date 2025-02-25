@@ -1,14 +1,7 @@
+"use client";
 import { IconBars } from "@/icons/bars";
 import { TocModel } from "@/models/notion.model";
 
-/*
- * @Descripttion:
- * @version: 0.0.1
- * @Author: Hansel
- * @Date: 2025-02-21 22:29:26
- * @LastEditors: Hansel
- * @LastEditTime: 2025-02-21 23:22:30
- */
 interface ContentTableProps {
   data: TocModel[];
   activeId: string;

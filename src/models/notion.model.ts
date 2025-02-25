@@ -32,10 +32,10 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
 
   public id = "";
   public type: NotionBlockType | "" = "";
-  public richText: RichTextkModel[] = [];
+  public richText: RichTextModel[] = [];
   public childrens: BlockModel[] = [];
   public checked?: boolean = false;
-  public caption?: RichTextkModel[] = [];
+  public caption?: RichTextModel[] = [];
   public url? = "";
   public icon = "";
   public language = "";
@@ -55,7 +55,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
       const result = BlockModel.createEntity<BlockModel>({
         id,
         type,
-        richText: RichTextkModel.generateEntityFromPromise(value.rich_text),
+        richText: RichTextModel.generateEntityFromPromise(value.rich_text),
         childrens: value.children,
         checked: value.checked,
         caption: value.caption,
@@ -88,8 +88,8 @@ export class PostModel extends ModelFactory<PostModel, PostModel> {
   }
 }
 
-export class RichTextkModel extends ModelFactory<RichTextkModel, RichTextkModel> {
-  static modelClass = RichTextkModel;
+export class RichTextModel extends ModelFactory<RichTextModel, RichTextModel> {
+  static modelClass = RichTextModel;
 
   public bold = false;
   public code = false;
@@ -100,12 +100,12 @@ export class RichTextkModel extends ModelFactory<RichTextkModel, RichTextkModel>
   public content = "";
   public link = "";
 
-  static generateEntityFromPromise(data: TextRichTextItemResponse[]): RichTextkModel[] {
+  static generateEntityFromPromise(data: TextRichTextItemResponse[]): RichTextModel[] {
     if (!data || !data.length) {
       return [];
     }
     return data.map((item) =>
-      RichTextkModel.createEntity({
+      RichTextModel.createEntity({
         ...item.annotations,
         ...item.text,
         link: item.text.link?.url,

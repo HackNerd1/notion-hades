@@ -27,8 +27,14 @@ export async function notionApiGetPostPage(id?: string): Promise<PostModel> {
   return PostModel.createEntityFromResponse(result);
 }
 
-// 获取已发布博客文章
+// 获取首页
 export async function notionApiGetHomePage(): Promise<PageModel> {
   const result: DatabaseObjectResponse = await (await fetch(`/api/home`)).json();
   return PageModel.createEntityFromResponse(result);
+}
+
+// 获取已发布博客文章
+export async function notionApiSearchPosts(searchQuery: string): Promise<PageModel[]> {
+  const result = await (await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`)).json();
+  return result.results.map((item: DatabaseObjectResponse) => PageModel.createEntityFromResponse(item));
 }

@@ -71,13 +71,6 @@ export default function Home() {
     fetchHomePage();
   }, []);
 
-  // useEffect(() => {
-  //   const targetY = window.innerHeight * currentSection;
-  //   window.scrollTo({
-  //     top: targetY,
-  //     behavior: "smooth",
-  //   });
-  // }, [currentSection]);
   return (
     <>
       <div className="min-h-screen relative h-full">
@@ -105,9 +98,6 @@ export default function Home() {
             className="mb-2"
           ></LoadMoreButton>
         </div>
-        {/* <NotionDivider /> */}
-        {/* <Title title="About Us"></Title>
-        <AboutUs content={aboutUs}></AboutUs> */}
       </div>
     </>
   );

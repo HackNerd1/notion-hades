@@ -1,3 +1,4 @@
+"use client";
 import { TagModel } from "@/models/notion.model";
 
 export function NotionTag(props: TagModel) {
