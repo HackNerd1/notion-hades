@@ -31,7 +31,11 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
             {/* Content overlay */}
             <div className="pt-4">
               {/* Title and metadata */}
-              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">{post.title}</h3>
+              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
+                {post.icon && <span className="mr-2">{post.icon}</span>}
+                {post.title}
+              </h3>
+              {/* {post.description && <p className="text-sm text-gray-300 mb-2 line-clamp-2">{post.description}</p>} */}
               <div className="flex items-center text-sm text-gray-300">
                 {/* <span className="mr-2">•</span> */}
                 <span className="mr-2">{post.publishDate}</span>

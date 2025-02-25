@@ -61,13 +61,15 @@ export function NotionSearch() {
           <section>
             <ul className="bg-gray-800 px-4 max-h-[20rem] rounded-b-md overflow-auto">
               {results.map((result) => (
-                <li key={result.id}>
+                <li key={result.id} className="group transition-all duration-150">
                   <a
                     href={`/post/${result.id}`}
-                    className="block py-2 px-4 rounded-md my-2 text-gray-400 hover:text-white hover:bg-[#4a9dc6] transition-all duration-150 ease-in-out"
+                    className="block py-2 px-4 rounded-md my-2 text-gray-400 hover:text-white hover:bg-[#4a9dc6] ease-in-out"
                   >
                     <h3 className="font-semibold ">{result.title}</h3>
-                    {/* <p className="mt-1 text-sm text-gray-600">{result.excerpt}</p> */}
+                    {result.description && (
+                      <p className="mt-1 text-sm text-gray-500 group-hover:text-white">{result.description}</p>
+                    )}
                   </a>
                 </li>
               ))}

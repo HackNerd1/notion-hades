@@ -93,7 +93,10 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
             <div className="absolute top-0 left-0 bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white w-full h-full">
               <div className="absolute bottom-0 left-0 p-12" style={getSlideDesStyle(currentIndex, index)}>
                 <Link href={`/post/${post.id}`}>
-                  <h3 className="text-5xl font-semibold mb-4 text-gray-50">{post.title}</h3>
+                  <h3 className="text-5xl font-semibold mb-4 text-gray-50">
+                    {post.icon && <span className="mr-4 text-4xl">{post.icon}</span>}
+                    {post.title}
+                  </h3>
                 </Link>
                 {/* <p className="text-xl mb-2">{post.excerpt}</p> */}
                 {post.tags.map((tag, i) => (

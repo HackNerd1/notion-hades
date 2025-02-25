@@ -1,4 +1,4 @@
-import { NotionBlockType, NotionColorType, PageResponse } from "@/interfaces/notion.interface";
+import { NotionBlockType, PageResponse } from "@/interfaces/notion.interface";
 import { ModelFactory } from "@/models/modelFactory";
 import { dateUtilsFormateDate } from "@/utils/date.utls";
 import { DatabaseObjectResponse, TextRichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
@@ -10,7 +10,7 @@ export class PageModel extends ModelFactory<PageModel, PageModel> {
   public title = "";
   public cover = "";
   public publishDate = "";
-  public excerpt = "";
+  public description = "";
   public icon = "";
   public tags: TagModel[] = [];
 
@@ -21,7 +21,7 @@ export class PageModel extends ModelFactory<PageModel, PageModel> {
       icon: data.icon?.emoji || data.icon?.file?.url,
       cover: data.cover?.external?.url || data.cover?.file?.url,
       publishDate: dateUtilsFormateDate(data.properties.Published?.date.start, "yyyy/MM/dd HH:mm"),
-      // excerpt: data.properties.excerpt,
+      description: data.properties.Description?.rich_text[0]?.plain_text,
       tags: data.properties.Tags?.multi_select.map((item: any) => TagModel.createEntity(item)),
     });
   }

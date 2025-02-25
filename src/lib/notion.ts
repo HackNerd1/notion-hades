@@ -54,8 +54,6 @@ export async function notionLibGetHomePage() {
 
 // 搜索页面
 export async function notionLibSearchPosts(query: string) {
-  console.log({ query });
-
   const response = await notion.databases.query({
     database_id: databaseId!,
     filter: {

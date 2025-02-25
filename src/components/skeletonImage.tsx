@@ -32,7 +32,7 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
         alt={alt}
         width={width}
         height={height}
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
         className={`rounded-lg transition-opacity duration-300 ${
           isLoading ? "opacity-0" : "opacity-100"
         } ${imageClassName}`}
