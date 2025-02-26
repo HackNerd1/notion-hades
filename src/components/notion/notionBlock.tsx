@@ -5,6 +5,7 @@ import { NotionDivider } from "./notionDivider";
 import { NotionCodeBlock } from "./notionCodeBlock";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SkeletonImage } from "../skeletonImage";
+import { NotionBookmark } from "./notionBookMark";
 
 export function NotionBlock(props: BlockModel) {
   const { type, id, richText, children, caption, icon, checked, url, language } = props;
@@ -124,21 +125,7 @@ export function NotionBlock(props: BlockModel) {
         </div>
       );
     case "bookmark": // 新增 bookmark 处理逻辑
-      return (
-        <div className="mb-4">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            {/* {richText && richText[0]?.content && (
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{richText[0]?.content}</h3>
-            )} */}
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{url}</p>
-          </a>
-        </div>
-      );
+      return <>{url && <NotionBookmark url={url}></NotionBookmark>}</>;
     default:
       console.warn(`Unsupported block type: ${type}`);
 

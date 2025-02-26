@@ -50,6 +50,8 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
       let url;
       if (type === "image") {
         url = value.type === "external" ? value.external?.url : value.file?.url;
+      } else if (type === "bookmark") {
+        url = value.url;
       }
 
       const result = BlockModel.createEntity<BlockModel>({

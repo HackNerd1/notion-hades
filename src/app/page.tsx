@@ -28,7 +28,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
   const [nextCursor, setNextCursor] = useState<string>();
-  const [siteInfo, setSiteInfo] = useState<PostModel>(PostModel.createEntity());
+  const [siteInfo, setSiteInfo] = useState<PostModel | undefined>();
 
   const fetchPosts = async (loadMore = false) => {
     try {
@@ -76,7 +76,7 @@ export default function Home() {
         <HackerBackground />
 
         <section className="h-full flex items-center justify-center absolute  w-full">
-          <AuthorInfo {...siteInfo} />
+          {siteInfo ? <AuthorInfo {...siteInfo} /> : <Skeleton type="siteInfo"></Skeleton>}
         </section>
         <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />

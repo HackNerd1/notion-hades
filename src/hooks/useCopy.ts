@@ -17,8 +17,8 @@ export function useCopy(code: string | string[]) {
     await navigator.clipboard.writeText(context);
     setCopied(true); // 设置 copied 为 true
     setTimeout(() => {
-      setCopied(false); // 3秒后恢复 copied 为 false
-    }, 3000);
+      setCopied(false); // 恢复 copied 为 false
+    }, 1500);
   }
 
   return { copied, handleCopy };

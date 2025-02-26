@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["www.notion.so", "prod-files-secure.s3.us-west-2.amazonaws.com"],
+    domains: ["www.notion.so", "prod-files-secure.s3.us-west-2.amazonaws.com", "developer.mozilla.org"],
   },
 };
 

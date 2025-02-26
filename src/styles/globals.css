@@ -42,6 +42,9 @@
   /* button */
   --button-color-default: rgb(28, 31, 36);
   --button-color-default-hover: rgba(28, 31, 36, 0.3);
+
+  /* bookmark */
+  --bookmark-hover: rgba(255, 255, 255, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {

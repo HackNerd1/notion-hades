@@ -1,14 +1,8 @@
-/*
- * @Descripttion:
- * @version: 0.0.1
- * @Author: Hansel
- * @Date: 2025-02-20 22:47:12
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2025-02-20 23:46:47
- */
+import { IconPhoto } from "@/icons/photo";
+
 interface SkeletonProps {
   count?: number;
-  type?: "carousel" | "post" | "page" | "image" | "avatar";
+  type?: "carousel" | "post" | "page" | "image" | "avatar" | "siteInfo";
 }
 
 export default function Skeleton({ count = 1, type }: SkeletonProps) {
@@ -48,13 +42,15 @@ export default function Skeleton({ count = 1, type }: SkeletonProps) {
   if (type === "image") {
     return (
       <div className="w-full h-full bg-gray-800/50 rounded-xl overflow-hidden">
-        <div className="w-full h-full bg-gray-700/50 animate-pulse"></div>
+        <div className="w-full h-full text-gray-400 flex justify-center items-center bg-gray-700/50 animate-pulse">
+          <IconPhoto size={40}></IconPhoto>
+        </div>
       </div>
     );
   }
 
   if (type === "avatar") {
-    return <span className="w-10 h-10 rounded-full bg-gray-700/50 inline-block animate-pulse" />;
+    return <span className="w-full h-full rounded-full bg-gray-700/50 inline-block animate-pulse" />;
   }
 
   if (type === "page") {

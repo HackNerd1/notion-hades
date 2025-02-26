@@ -31,10 +31,7 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
   const [isLoading, setIsLoading] = React.useState(true);
 
   return (
-    <div
-      className={`relative h-full w-full max-w-full ${className}`}
-      style={generateContainerStyle({ width, height, fill })}
-    >
+    <div className={`relative w-full h-full max-w-full overflow-hidden ${className}`}>
       {isLoading && (
         <div className="absolute top-0 left-0 h-full w-full">
           <Skeleton type={type}></Skeleton>
