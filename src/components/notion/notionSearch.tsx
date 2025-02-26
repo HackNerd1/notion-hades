@@ -8,6 +8,7 @@ import { IconSearch } from "@/icons/search";
 import { notionApiSearchPosts } from "@/apis/notion-apis";
 import { PageModel } from "@/models/notion.model";
 import { IconLoading } from "@/icons/loading";
+import { NotionTag } from "./notionTag";
 
 export function NotionSearch() {
   const [query, setQuery] = useState("");
@@ -66,9 +67,19 @@ export function NotionSearch() {
                     href={`/post/${result.id}`}
                     className="block py-2 px-4 rounded-md my-2 text-gray-400 hover:text-white hover:bg-[#4a9dc6] ease-in-out"
                   >
-                    <h3 className="font-semibold ">{result.title}</h3>
+                    <h3 className="font-semibold ">
+                      {result.icon ? <span className="mr-2 text-md">{result.icon}</span> : null} {result.title}
+                    </h3>
                     {result.description && (
                       <p className="mt-1 text-sm text-gray-500 group-hover:text-white">{result.description}</p>
+                    )}
+                    {result.tags.length && (
+                      // <p className="mt-1 text-sm text-gray-500 group-hover:text-white">{result.description}</p>
+                      <div className="mt-2 flex gap-2">
+                        {result.tags.map((tag, i) => (
+                          <NotionTag {...tag} size="sm" key={i}></NotionTag>
+                        ))}
+                      </div>
                     )}
                   </a>
                 </li>

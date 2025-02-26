@@ -1,20 +1,7 @@
-import Image from "next/image";
-import { SocialIcon, SocialLink } from "./socialIcon";
+import { PostModel } from "@/models/notion.model";
+import { NotionBlock } from "./notion/notionBlock";
 
-interface AuthorInfoProps {
-  author: {
-    name: string;
-    bio: string;
-    avatar: string;
-    socialLinks: SocialLink[];
-  };
-  siteInfo: {
-    title: string;
-    description: string;
-  };
-}
-
-export default function AuthorInfo({ author }: AuthorInfoProps) {
+export default function AuthorInfo(props: PostModel) {
   return (
     <div className="text-center p-6 max-w-2xl mx-auto">
       {/* <Image
@@ -25,11 +12,17 @@ export default function AuthorInfo({ author }: AuthorInfoProps) {
         className="rounded-full mx-auto mb-4 bg-white"
       /> */}
       <h2 className="text-6xl tracking-tighter sm:text-7xl lg:text-8xl font-bold text-gray-800 dark:text-white mb-2">
-        {author.name}
+        {props.page.title}
       </h2>
-      <p className="max-w-[600px] text-lg text-gray-400 sm:text-xl mb-4">{author.bio}</p>
+      <div className="max-w-[600px] text-lg text-gray-400 sm:text-xl mb-4">
+        {props.blocks.map((block) => (
+          <div key={block.id}>
+            <NotionBlock {...block}></NotionBlock>
+          </div>
+        ))}
+      </div>
       <div className="flex justify-center items-center space-x-4">
-        {author.socialLinks.map((link, index) => (
+        {/* {author.socialLinks.map((link, index) => (
           <a
             key={index}
             href={link.url}
@@ -39,7 +32,7 @@ export default function AuthorInfo({ author }: AuthorInfoProps) {
           >
             <SocialIcon platform={link.platform} />
           </a>
-        ))}
+        ))} */}
       </div>
     </div>
   );

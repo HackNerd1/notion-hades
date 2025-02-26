@@ -20,7 +20,8 @@ export type NotionBlockType =
   | "divider"
   | "image"
   | "callout"
-  | "external";
+  | "external"
+  | "bookmark";
 
 export type NotionColorType =
   | "gray"

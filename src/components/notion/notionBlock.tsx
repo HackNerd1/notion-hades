@@ -7,7 +7,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SkeletonImage } from "../skeletonImage";
 
 export function NotionBlock(props: BlockModel) {
-  const { type, id, richText, childrens, caption, icon, checked, url, language } = props;
+  const { type, id, richText, children, caption, icon, checked, url, language } = props;
 
   switch (type) {
     case "paragraph":
@@ -39,7 +39,7 @@ export function NotionBlock(props: BlockModel) {
       return (
         <li className="ml-4 mb-2">
           <NotionRichText richText={richText} />
-          {childrens?.map((block: any) => (
+          {children?.map((block: any) => (
             <div key={block.id}>
               <NotionBlock {...block}></NotionBlock>
             </div>
@@ -52,7 +52,7 @@ export function NotionBlock(props: BlockModel) {
           <input type="checkbox" checked={checked} readOnly className="mt-1 mr-2" />
           <div>
             <NotionRichText richText={richText} />
-            {childrens?.map((block: any) => (
+            {children?.map((block: any) => (
               <div key={block.id}>
                 <NotionBlock {...block}></NotionBlock>
               </div>
@@ -66,7 +66,7 @@ export function NotionBlock(props: BlockModel) {
           <summary className="cursor-pointer">
             <NotionRichText richText={richText} />
           </summary>
-          {childrens?.map((block: any) => (
+          {children?.map((block: any) => (
             <div key={block.id} className="ml-4 mt-2">
               <NotionBlock {...block}></NotionBlock>
             </div>
@@ -115,7 +115,7 @@ export function NotionBlock(props: BlockModel) {
           {icon && <div className="mr-4 text-2xl">{icon}</div>}
           <div>
             <NotionRichText richText={richText} />
-            {childrens?.map((block: any) => (
+            {children?.map((block: any) => (
               <div key={block.id}>
                 <NotionBlock {...block}></NotionBlock>
               </div>
@@ -123,7 +123,25 @@ export function NotionBlock(props: BlockModel) {
           </div>
         </div>
       );
+    case "bookmark": // 新增 bookmark 处理逻辑
+      return (
+        <div className="mb-4">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
+            {/* {richText && richText[0]?.content && (
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{richText[0]?.content}</h3>
+            )} */}
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{url}</p>
+          </a>
+        </div>
+      );
     default:
-      return <p className="mb-4">Unsupported block type: {type}</p>;
+      console.warn(`Unsupported block type: ${type}`);
+
+      return "";
   }
 }

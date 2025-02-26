@@ -33,7 +33,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   public id = "";
   public type: NotionBlockType | "" = "";
   public richText: RichTextModel[] = [];
-  public childrens: BlockModel[] = [];
+  public children: BlockModel[] = [];
   public checked?: boolean = false;
   public caption?: RichTextModel[] = [];
   public url? = "";
@@ -56,7 +56,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         id,
         type,
         richText: RichTextModel.generateEntityFromPromise(value.rich_text),
-        childrens: value.children,
+        children: value.children,
         checked: value.checked,
         caption: value.caption,
         url,

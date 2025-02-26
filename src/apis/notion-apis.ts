@@ -1,6 +1,7 @@
 "use client";
 
 import { NotionDataBase, NotionDataBaseRequest, PageResponse } from "@/interfaces/notion.interface";
+import { useCache } from "@/lib/cache";
 import { PageModel, PostModel } from "@/models/notion.model";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
@@ -28,10 +29,10 @@ export async function notionApiGetPostPage(id?: string): Promise<PostModel> {
 }
 
 // 获取首页
-export async function notionApiGetHomePage(): Promise<PageModel> {
-  const result: DatabaseObjectResponse = await (await fetch(`/api/home`)).json();
-  return PageModel.createEntityFromResponse(result);
-}
+export const notionApiGetHomePage = useCache(async (): Promise<PostModel> => {
+  const result: PageResponse = await (await fetch(`/api/home`)).json();
+  return PostModel.createEntityFromResponse(result);
+})
 
 // 获取已发布博客文章
 export async function notionApiSearchPosts(searchQuery: string): Promise<PageModel[]> {

@@ -8,7 +8,7 @@
  */
 interface SkeletonProps {
   count?: number;
-  type?: "carousel" | "post" | "page" | "image";
+  type?: "carousel" | "post" | "page" | "image" | "avatar";
 }
 
 export default function Skeleton({ count = 1, type }: SkeletonProps) {
@@ -51,6 +51,10 @@ export default function Skeleton({ count = 1, type }: SkeletonProps) {
         <div className="w-full h-full bg-gray-700/50 animate-pulse"></div>
       </div>
     );
+  }
+
+  if (type === "avatar") {
+    return <span className="w-10 h-10 rounded-full bg-gray-700/50 inline-block animate-pulse" />;
   }
 
   if (type === "page") {

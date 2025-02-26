@@ -1,10 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useSmoothScroll } from "../hooks/useSmoothScroll";
 import HackerBackground from "@/components/hackerBackground";
 import AuthorInfo from "@/components/authorInfo";
-import { aboutUs, author, siteInfo } from "@/mock/sampleData";
 import ThemeToggle from "@/components/themeToggle";
 import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
@@ -13,7 +11,7 @@ import { Title } from "@/components/title";
 import BlogPostList from "@/components/blogPostList";
 import { notionApiGetHomePage, notionApiGetPublishedBlogPosts } from "@/apis/notion-apis";
 import Skeleton from "@/components/skeleton";
-import { PageModel } from "@/models/notion.model";
+import { PageModel, PostModel } from "@/models/notion.model";
 import { Search } from "@/components/search";
 
 function scrollDown() {
@@ -30,6 +28,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
   const [nextCursor, setNextCursor] = useState<string>();
+  const [siteInfo, setSiteInfo] = useState<PostModel>(PostModel.createEntity());
 
   const fetchPosts = async (loadMore = false) => {
     try {
@@ -59,7 +58,7 @@ export default function Home() {
 
   const fetchHomePage = async () => {
     const result = await notionApiGetHomePage();
-    console.log(result);
+    setSiteInfo(result);
   };
 
   const eventHandlerLoadMore = useCallback(() => {
@@ -77,7 +76,7 @@ export default function Home() {
         <HackerBackground />
 
         <section className="h-full flex items-center justify-center absolute  w-full">
-          <AuthorInfo author={author} siteInfo={siteInfo} />
+          <AuthorInfo {...siteInfo} />
         </section>
         <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />

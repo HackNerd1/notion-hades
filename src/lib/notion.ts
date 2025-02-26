@@ -46,9 +46,9 @@ export async function notionLibGetPage(pageId: string) {
 // 获取页面
 export async function notionLibGetHomePage() {
   if (homePageId) {
-    return await notion.pages.retrieve({ page_id: homePageId });
+    return await notionLibGetPost(homePageId);
   } else {
-    throw new Error("Missing enviroment variable NOTION_HOME_PAGE_ID");
+    throw new Error("Missing environment variable NOTION_HOME_PAGE_ID");
   }
 }
 
