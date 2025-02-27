@@ -12,7 +12,7 @@ export default function LoadMoreButton({ hasMore, onClick, loading, className, .
       onClick={onClick}
       disabled={!hasMore}
       className={`
-        text-md rounded-md text-white 
+        text-md rounded-md text-[var(--text-default)] 
         hover:bg-gray-700 bg-[var(--button-color-default)]
         disabled:cursor-not-allowed disabled:pointer-events-none
         px-6 py-1 transition duration-300
@@ -20,7 +20,7 @@ export default function LoadMoreButton({ hasMore, onClick, loading, className, .
       {...rest}
     >
       {hasMore ? "More" : "No More"}
-      {loading && <IconLoading size={24} color="#fff" classNames="animate-spin ml-1"></IconLoading>}
+      {loading && <IconLoading size={24} classNames="animate-spin ml-1"></IconLoading>}
     </button>
   );
 }

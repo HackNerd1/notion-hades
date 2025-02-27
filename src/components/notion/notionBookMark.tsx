@@ -2,36 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { SkeletonImage } from "../skeletonImage";
-import { BookMarkModel } from "@/models/bookmard.model";
+import { BookMarkModel } from "@/models/bookmark.model";
 import { notionApiGetMetaData } from "@/apis/notion-apis";
-
-// interface BookmarkMetadata {
-//   title: string;
-//   description: string;
-//   favicon: string;
-//   image: string;
-// }
-
+import { IconLink } from "@/icons/link";
 interface BookmarkBlockProps {
   url: string;
 }
-
-// const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
-// function getCachedMetadata(url: string): BookmarkMetadata | null {
-//   const cached = localStorage.getItem(`bookmark-${url}`);
-//   if (cached) {
-//     const { data, timestamp } = JSON.parse(cached);
-//     if (Date.now() - timestamp < CACHE_DURATION) {
-//       return data;
-//     }
-//   }
-//   return null;
-// }
-
-// function setCachedMetadata(url: string, data: BookmarkMetadata) {
-//   localStorage.setItem(`bookmark-${url}`, JSON.stringify({ data, timestamp: Date.now() }));
-// }
 
 export function NotionBookmark({ url }: BookmarkBlockProps) {
   const [metadata, setMetadata] = useState<BookMarkModel | null>(null);
@@ -40,13 +16,6 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
 
   useEffect(() => {
     const fetchMetadata = async () => {
-      // const cachedData = getCachedMetadata(url);
-      // if (cachedData) {
-      //   setMetadata(cachedData);
-      //   setIsLoading(false);
-      //   return;
-      // }
-
       try {
         const response = await notionApiGetMetaData(url);
         setMetadata(response);
@@ -105,7 +74,7 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
             {metadata.description}
           </p>
           <div className="flex items-center text-sm text-gray-500text-gray-400">
-            {/* <ExternalLink size={14} className="mr-1" /> */}
+            <IconLink size={14} classNames="mr-1" />
             {new URL(url).hostname}
           </div>
         </div>

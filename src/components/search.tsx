@@ -16,11 +16,11 @@ export function Search() {
           text-sm transition-all duration-300 bg-[#353a45]
         hover:bg-gray-700 hover:text-white h-full
         text-gray-400 flex gap-2 items-center font-normal
-          rounded-lg pl-4 pr-8 py-2 text-md`}
+          rounded-lg p-2 sm:pl-4 sm:pr-8 sm:py-2 text-md`}
         onClick={openModal}
       >
         <IconSearch size={20}></IconSearch>
-        Search articles...
+        <span className="hidden sm:block">Search articles...</span>
       </button>
       <Modal isOpen={isModalOpen} onClose={closeModal} showHeader={false}>
         <NotionSearch></NotionSearch>

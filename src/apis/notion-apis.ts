@@ -2,7 +2,7 @@
 
 import { NotionDataBase, NotionDataBaseRequest, PageResponse } from "@/interfaces/notion.interface";
 import { useCache } from "@/lib/cache";
-import { BookMarkModel } from "@/models/bookmard.model";
+import { BookMarkModel } from "@/models/bookmark.model";
 import { PageModel, PostModel } from "@/models/notion.model";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 

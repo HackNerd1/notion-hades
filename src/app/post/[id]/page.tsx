@@ -61,7 +61,7 @@ export default function BlogPost() {
         </figure>
       </section>
       <article className="max-w-4xl m-auto px-12">
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-4 leading-[1.5]">
           <span className="text-[1.3em]">{post.page.icon}</span> {post.page.title}
         </h1>
 
@@ -80,12 +80,12 @@ export default function BlogPost() {
             ))}
           </div>
 
-          <div className="opacity-100 flex-1 ">
+          <div className="opacity-100 flex-1 hidden sm:block">
             <ContentTable activeId={activeId} data={tableOfContents}></ContentTable>
           </div>
         </div>
         <NotionDivider />
-        <section className="text-gray-400 font-normal"> {post.page.publishDate}</section>
+        <section className="text-[var(--text-default)] font-normal"> {post.page.publishDate}</section>
       </article>
     </div>
   );

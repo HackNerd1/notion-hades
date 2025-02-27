@@ -22,7 +22,7 @@ export default function PostLayout(props: PostLayoutProp) {
     fetchHomePage();
   }, []);
   return (
-    <>
+    <main className="flex flex-col h-full">
       <header className="px-6 py-2 w-full h-14 text-md">
         <div className="max-w-6xl m-auto h-full flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 text-lg h-full">
@@ -41,7 +41,7 @@ export default function PostLayout(props: PostLayoutProp) {
         {/* <Link href={"/about"}>About</Link>
         <Link href={"/Contract"}>Contract</Link> */}
       </header>
-      <div className="pt-1 pb-12 w-full h-full">{props.children}</div>
-    </>
+      <div className="pt-1 pb-12 flex-1">{props.children}</div>
+    </main>
   );
 }
