@@ -101,19 +101,31 @@ export class RichTextModel extends ModelFactory<RichTextModel, RichTextModel> {
   public underline = false;
   public content = "";
   public link = "";
+  public type: "text" | "mention" | "" = "";
+  public icon = ""
+  public description = ""
 
   static generateEntityFromPromise(data: TextRichTextItemResponse[]): RichTextModel[] {
     if (!data || !data.length) {
       return [];
     }
-    return data.map((item) =>
-      RichTextModel.createEntity({
-        ...item.annotations,
-        ...item.text,
-        link: item.text.link?.url,
-        // link: item.
-      })
-    );
+    return data.map((item) => {
+      switch (item.type) {
+        case "mention":
+          return RichTextModel.createEntity({
+            ...item.annotations,
+            ...MentionModel.generateEntityFromPromise(item.mention),
+            type: item.type,
+          })
+        case "text":
+          return RichTextModel.createEntity({
+            ...item.annotations,
+            ...item.text,
+            link: item.text?.link?.url,
+            type: item.type,
+          })
+      }
+    });
   }
 }
 
@@ -143,5 +155,26 @@ export class TocModel extends ModelFactory<TocModel, TocModel> {
           text: block.richText[0].content,
         })
       );
+  }
+}
+
+export class MentionModel extends ModelFactory<MentionModel, MentionModel> {
+  static modelClass = MentionModel;
+  public link = ""
+  public content = ""
+  public icon = ""
+  public description = ""
+
+  static generateEntityFromPromise(data: any): MentionModel | undefined {
+    if (!data) {
+      return;
+    }
+    const value = data[data.type];
+    return MentionModel.createEntity({
+      link: value.href,
+      content: value.title,
+      icon: value.icon_url,
+      description: value.description
+    })
   }
 }

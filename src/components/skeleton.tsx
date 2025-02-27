@@ -56,9 +56,9 @@ export default function Skeleton({ count = 1, type }: SkeletonProps) {
   if (type === "page") {
     return (
       <div className="relative w-full h-full bg-gray-800/50 rounded-xl overflow-hidden mb-8">
-        <div className="h-[40vh] w-full bg-gray-700/50" />
+        <div className="h-[70%] w-full bg-gray-700/50" />
 
-        <div className="h-[30vh] w-full p-4 flex space-y-3 flex-col animate-pulse">
+        <div className="h-[30%] w-full p-4 flex space-y-3 flex-col animate-pulse">
           {/* Author avatar and info placeholder */}
           <div className="flex items-center gap-3 ">
             <div className="w-10 h-10 rounded-full bg-gray-700/50" />

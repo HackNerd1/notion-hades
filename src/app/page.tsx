@@ -75,12 +75,12 @@ export default function Home() {
       <div className="min-h-screen relative h-full">
         <HackerBackground />
 
-        <section className="h-full flex items-center justify-center absolute  w-full">
-          {siteInfo ? <AuthorInfo {...siteInfo} /> : <Skeleton type="siteInfo"></Skeleton>}
+        <section className="h-full flex items-center justify-center absolute  w-full p-[20%]">
+          {siteInfo ? <AuthorInfo {...siteInfo} /> : <Skeleton type="page"></Skeleton>}
         </section>
-        <div className="fixed bottom-4 right-4 z-50">
+        {/* <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
-        </div>
+        </div> */}
         <ScrollDownButton onClick={scrollDown} />
       </div>
       <div className="min-h-screen max-w-6xl m-auto p-12">

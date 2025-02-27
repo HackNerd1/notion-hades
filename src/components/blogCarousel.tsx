@@ -48,6 +48,12 @@ function clearAutoSlide() {
   }
 }
 
+function openLink(url: string) {
+  return function () {
+    window.open(url, "_blank");
+  };
+}
+
 export default function BlogCarousel({ posts }: BlogCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -81,7 +87,11 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
         style={getSlideStyle(currentIndex)}
       >
         {posts.map((post, index) => (
-          <div key={post.id} className={`relative basis-[100%] grow-1 shrink-0 h-full rounded-3xl overflow-hidden`}>
+          <div
+            key={post.id}
+            className={`relative basis-[100%] grow-1 shrink-0 h-full rounded-3xl overflow-hidden`}
+            onClick={openLink(`/post/${post.id}`)}
+          >
             <Link href={`/post/${post.id}`}>
               <Image
                 src={post.cover || "/placeholder.svg"}
@@ -91,13 +101,13 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
               />
             </Link>
             <div className="absolute top-0 left-0 bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white w-full h-full">
-              <div className="absolute bottom-0 left-0 p-12" style={getSlideDesStyle(currentIndex, index)}>
-                <Link href={`/post/${post.id}`}>
-                  <h3 className="text-5xl font-semibold mb-4 text-gray-50">
-                    {post.icon && <span className="mr-4 text-4xl">{post.icon}</span>}
-                    {post.title}
-                  </h3>
-                </Link>
+              <div className="absolute bottom-0 left-0 p-12 w-full" style={getSlideDesStyle(currentIndex, index)}>
+                {/* <Link href={`/post/${post.id}`}> */}
+                <h3 className="text-5xl font-semibold mb-4 text-gray-50 text-ellipsis overflow-hidden line-clamp-4 leading-[1.2] hover:text-[var(--text-title-default)] transition-all duration-300 cursor-pointer">
+                  {post.icon && <span className="mr-4 text-4xl">{post.icon}</span>}
+                  {post.title}
+                </h3>
+                {/* </Link> */}
                 {/* <p className="text-xl mb-2">{post.excerpt}</p> */}
                 {post.tags.map((tag, i) => (
                   <NotionTag {...tag} key={i}></NotionTag>
@@ -110,14 +120,14 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
       <button
         onClick={prevSlide}
         disabled={!posts.length || currentIndex === 0}
-        className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-[#33334c] opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-[#33334c] opacity-100 md:opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         &#10094;
       </button>
       <button
         onClick={nextSlide}
         disabled={!posts.length || currentIndex === posts.length - 1}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[#33334c] opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[#33334c] opacity-100 md:opacity-0 group-hover:opacity-100 text-white p-2 rounded-md shadow-md h-10 w-10 group-hover:disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         &#10095;
       </button>

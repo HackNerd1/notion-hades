@@ -31,7 +31,7 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
             {/* Content overlay */}
             <div className="pt-4">
               {/* Title and metadata */}
-              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
+              <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 hover:text-[var(--text-title-default)] transition-all duration-300">
                 {post.icon && <span className="mr-2">{post.icon}</span>}
                 {post.title}
               </h3>

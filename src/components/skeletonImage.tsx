@@ -31,11 +31,11 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
   const [isLoading, setIsLoading] = React.useState(true);
 
   return (
-    <div className={`relative w-full h-full max-w-full overflow-hidden ${className}`}>
+    <span className={`relative w-full h-full max-w-full overflow-hidden block ${className}`}>
       {isLoading && (
-        <div className="absolute top-0 left-0 h-full w-full">
+        <span className="absolute block top-0 left-0 h-full w-full">
           <Skeleton type={type}></Skeleton>
-        </div>
+        </span>
       )}
       <Image
         src={src || "/placeholder.svg"}
@@ -49,6 +49,6 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
         } ${imageClassName}`}
         {...props}
       />
-    </div>
+    </span>
   );
 };
