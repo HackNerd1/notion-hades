@@ -10,12 +10,12 @@ interface SkeletonImageProps extends ImageProps {
   type?: "image" | "avatar";
 }
 
-function generateContainerStyle({ width, height }: Partial<SkeletonImageProps>) {
-  return {
-    height: height ? `${height}px` : undefined,
-    width: width ? `${width}px` : undefined,
-  };
-}
+// function generateContainerStyle({ width, height }: Partial<SkeletonImageProps>) {
+//   return {
+//     height: height ? `${height}px` : undefined,
+//     width: width ? `${width}px` : undefined,
+//   };
+// }
 
 export const SkeletonImage: React.FC<SkeletonImageProps> = ({
   src,

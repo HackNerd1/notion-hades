@@ -24,13 +24,13 @@ export function useSmoothScroll(sectionCount: number) {
       lastScrollTime = now;
     };
 
-    const smoothScroll = () => {
-      const targetY = window.innerHeight * currentSection;
-      window.scrollTo({
-        top: targetY,
-        behavior: "smooth",
-      });
-    };
+    // const smoothScroll = () => {
+    //   const targetY = window.innerHeight * currentSection;
+    //   window.scrollTo({
+    //     top: targetY,
+    //     behavior: "smooth",
+    //   });
+    // };
 
     // window.addEventListener("wheel", handleWheel, { passive: false })
 

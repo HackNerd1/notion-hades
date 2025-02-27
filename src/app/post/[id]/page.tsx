@@ -12,11 +12,11 @@ import { PostModel, TocModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
 import { SkeletonImage } from "@/components/skeletonImage";
 
-function getBannerStyle(url: string) {
-  return {
-    background: `url('${url}') center / cover no-repeat`,
-  };
-}
+// function getBannerStyle(url: string) {
+//   return {
+//     background: `url('${url}') center / cover no-repeat`,
+//   };
+// }
 
 export default function BlogPost() {
   const [post, setPost] = useState<PostModel>();

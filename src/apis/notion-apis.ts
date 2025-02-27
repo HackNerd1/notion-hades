@@ -1,7 +1,7 @@
 "use client";
 
 import { NotionDataBase, NotionDataBaseRequest, PageResponse } from "@/interfaces/notion.interface";
-import { useCache } from "@/lib/cache";
+import { withCache } from "@/lib/cache";
 import { BookMarkModel } from "@/models/bookmark.model";
 import { PageModel, PostModel } from "@/models/notion.model";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
@@ -30,7 +30,7 @@ export async function notionApiGetPostPage(id?: string): Promise<PostModel> {
 }
 
 // 获取首页
-export const notionApiGetHomePage = useCache(async (): Promise<PostModel> => {
+export const notionApiGetHomePage = withCache(async (): Promise<PostModel> => {
   const result: PageResponse = await (await fetch(`/api/home`)).json();
   return PostModel.createEntityFromResponse(result);
 });
@@ -42,7 +42,7 @@ export async function notionApiSearchPosts(searchQuery: string): Promise<PageMod
 }
 
 // 获取已发布博客文章
-export const notionApiGetMetaData = useCache(async (url: string): Promise<BookMarkModel> => {
+export const notionApiGetMetaData = withCache(async (url: string): Promise<BookMarkModel> => {
   const result = await (await fetch(`/api/bookmark?url=${encodeURIComponent(url)}`)).json();
   return BookMarkModel.createEntityFromResponse(result);
 }, 60 * 60 * 24 * 1000);

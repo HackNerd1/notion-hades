@@ -1,5 +1,5 @@
 export class ModelFactory<T, M = T> {
-  static modelClass: { new (): any };
+  static modelClass: { new(): any };
 
   static createEntity<M>(data?: Partial<M>) {
     const entity = new this.modelClass();

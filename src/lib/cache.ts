@@ -39,7 +39,7 @@ function cacheLibRemoveCache(key: string): void {
 
 
 // 缓存装饰器，默认15天过期
-export function useCache<F extends (...args: any[]) => any>(fn: F, ttl: number = 1000 * 60 * 60 * 24 * 15): (...args: Parameters<F>) => Promise<Awaited<ReturnType<F>>> {
+export function withCache<F extends (...args: any[]) => any>(fn: F, ttl: number = 1000 * 60 * 60 * 24 * 15): (...args: Parameters<F>) => Promise<Awaited<ReturnType<F>>> {
   return async function (...args) {
     const key = fn.name;
     const cacheKey = `${key}-${args.join('-')}`; // 使用函数名和参数作为缓存键
