@@ -12,11 +12,7 @@ export function Search() {
   return (
     <>
       <button
-        className={`
-          text-sm transition-all duration-300 bg-[#353a45]
-        hover:bg-gray-700 hover:text-white h-full
-        text-gray-400 flex gap-2 items-center font-normal
-          rounded-lg p-2 text-md`}
+        className={`button-default text-md flex h-full items-center gap-2 rounded-lg p-2 text-sm`}
         onClick={openModal}
       >
         <IconSearch size={20}></IconSearch>

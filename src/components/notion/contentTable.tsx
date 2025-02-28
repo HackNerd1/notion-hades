@@ -15,7 +15,7 @@ export function ContentTable(props: ContentTableProps) {
         Contents
       </h2>
       <ul className="relative">
-        <li className="absolute w-[0.1rem] top-0 left-1 h-full rounded bg-[var(--border-color)]"></li>
+        <li className="absolute w-[0.1rem] top-0 left-1 h-full rounded bg-border-color"></li>
         {props.data.map((item) => {
           const isMainHeading = item.type === "heading_1";
           const isSubHeading = item.type === "heading_2";

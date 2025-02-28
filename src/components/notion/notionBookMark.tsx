@@ -5,6 +5,7 @@ import { SkeletonImage } from "../skeletonImage";
 import { BookMarkModel } from "@/models/bookmark.model";
 import { notionApiGetMetaData } from "@/apis/notion-apis";
 import { IconLink } from "@/icons/link";
+import { Alert } from "../alert";
 interface BookmarkBlockProps {
   url: string;
 }
@@ -31,11 +32,11 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
   }, [url]);
 
   if (isLoading) {
-    return <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-24 rounded-lg mb-4"></div>;
+    return <div className="mb-4 h-24 animate-pulse rounded-lg bg-gray-700"></div>;
   }
 
   if (error) {
-    return <div className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 p-4 rounded-lg mb-4">{error}</div>;
+    return <Alert message={error} type="error"></Alert>;
   }
 
   if (!metadata) {
@@ -47,11 +48,11 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block relative mb-4 group overflow-hidden rounded-lg border border-gray-700 hover:shadow-md transition-shadow duration-300"
+      className="group relative mb-4 block overflow-hidden rounded-lg border border-gray-700 transition-shadow duration-300 hover:shadow-md"
     >
       <div className="flex flex-col md:flex-row">
         {metadata.image && (
-          <div className="h-48 md:h-auto relative flex-[3_1_0]">
+          <div className="relative h-48 flex-[3_1_0] md:h-auto">
             <SkeletonImage
               src={metadata.image || "/placeholder.svg"}
               alt={metadata.title}
@@ -61,25 +62,25 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
             />
           </div>
         )}
-        <div className="p-4 flex-[4_1_0] min-w-0">
-          <div className="flex items-center mb-2">
+        <div className="min-w-0 flex-[4_1_0] p-4">
+          <div className="mb-2 flex items-center">
             {metadata.favicon && (
               <SkeletonImage type="avatar" src={metadata.favicon} alt="" width={32} height={32} className="mr-2" />
             )}
-            <h3 className="flex-1 text-nowrap overflow-hidden overflow-ellipsis text-lg font-semibold text-blue-600 dark:text-blue-400">
+            <h3 className="flex-1 overflow-hidden overflow-ellipsis text-nowrap text-lg font-semibold text-blue-400">
               {metadata.title}
             </h3>
           </div>
-          <p className="text-sm text-gray-400 mb-2 overflow-hidden overflow-ellipsis max-h-[2.5rem]">
+          <p className="mb-2 max-h-[2.5rem] overflow-hidden overflow-ellipsis text-sm text-gray-400">
             {metadata.description}
           </p>
-          <div className="flex items-center text-sm text-gray-500text-gray-400">
+          <div className="text-gray-500text-gray-400 flex items-center text-sm">
             <IconLink size={14} classNames="mr-1" />
             {new URL(url).hostname}
           </div>
         </div>
       </div>
-      <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-[var(--bookmark-hover)] transition-all duration-300"></div>
+      <div className="absolute left-0 top-0 h-full w-full bg-bookmark-hover opacity-0 transition-all duration-300 group-hover:opacity-100"></div>
     </a>
   );
 }

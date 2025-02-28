@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
   try {
     const results = await notionLibSearchPosts(query)
     return NextResponse.json(results)
-  } catch (error) {
+  } catch (error: any) {
     console.error("Search error:", error)
-    return NextResponse.json({ error: "An error occurred while searching" }, { status: 500 })
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
   }
 }
 

@@ -1,3 +1,4 @@
+@import url(./components.css);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,14 +35,15 @@
   --text-purple: rgb(157, 104, 211);
   --text-pink: rgb(209, 87, 150);
   --text-default: rgb(183, 183, 183);
+  --text-default-hover: rgb(213, 213, 213);
   --text-title-default: rgb(213, 213, 213);
 
   /* scroll-bar */
   --scroll-bar-color: rgb(139, 139, 139);
 
   /* button */
-  --button-color-default: rgb(28, 31, 36);
-  --button-color-default-hover: rgba(28, 31, 36, 0.3);
+  --button-default: rgb(28, 31, 36);
+  --button-default-hover: rgba(255, 255, 255, 0.05);
 
   /* bookmark */
   --bookmark-hover: rgba(255, 255, 255, 0.05);
@@ -69,22 +71,6 @@ body {
 
 html {
   scroll-behavior: smooth;
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

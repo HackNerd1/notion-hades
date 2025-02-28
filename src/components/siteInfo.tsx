@@ -1,9 +1,9 @@
 import { PostModel } from "@/models/notion.model";
 import { NotionBlock } from "./notion/notionBlock";
 
-export default function AuthorInfo(props: PostModel) {
+export default function SiteInfo(props: PostModel) {
   return (
-    <div className="text-center p-6 max-w-2xl mx-auto">
+    <div className="mx-auto max-w-2xl p-6 text-center">
       {/* <Image
         src={author.avatar || "/placeholder.svg"}
         alt={author.name}
@@ -11,17 +11,17 @@ export default function AuthorInfo(props: PostModel) {
         height={150}
         className="rounded-full mx-auto mb-4 bg-white"
       /> */}
-      <h2 className="text-6xl tracking-tighter sm:text-7xl lg:text-8xl font-bold text-gray-800 dark:text-white mb-2">
+      <h2 className="mb-2 text-6xl font-bold tracking-tighter text-white sm:text-7xl lg:text-8xl">
         {props.page.title}
       </h2>
-      <div className="max-w-[600px] text-lg text-gray-400 sm:text-xl mb-4">
+      <div className="mb-4 max-w-[600px] text-lg text-gray-400 sm:text-xl">
         {props.blocks.map((block) => (
           <div key={block.id}>
             <NotionBlock {...block}></NotionBlock>
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center space-x-4">
+      <div className="flex items-center justify-center space-x-4">
         {/* {author.socialLinks.map((link, index) => (
           <a
             key={index}

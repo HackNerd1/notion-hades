@@ -1,0 +1,18 @@
+@layer components {
+  .button-default {
+    @apply relative cursor-pointer overflow-hidden bg-button-default text-text-default shadow-md transition-colors duration-300;
+  }
+
+  .button-default::before {
+    content: "";
+    opacity: 0;
+    @apply absolute left-0 top-0 z-10 h-full w-full bg-button-default-hover transition-opacity duration-300;
+  }
+  .button-default:hover {
+    @apply text-text-default-hover;
+  }
+
+  .button-default:hover::before {
+    opacity: 100;
+  }
+}

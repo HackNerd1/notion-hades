@@ -5,11 +5,11 @@ interface TagListProps {
 export default function TagList({ tags }: TagListProps) {
   return (
     <div>
-      <div className="flex flex-wrap gap-2 scroll-auto mb-8">
+      <div className="mb-8 flex flex-wrap gap-2 scroll-auto">
         {tags.map((tag, index) => (
           <a
             key={index}
-            className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-full text-sm cursor-pointer"
+            className="cursor-pointer rounded-full bg-gray-700 px-3 py-1 text-sm text-white"
           >
             {tag}
           </a>

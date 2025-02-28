@@ -16,7 +16,7 @@ export function NotionTag({ size = "md", className, id, name, color }: NotionTag
       "text-lg px-3 py-1 rounded-md": size === "lg",
     },
     "text-white relative",
-    className
+    className,
   );
   return (
     <span key={id} className={wrapClassName} style={{ background: `var(--tag-${color})` }}>

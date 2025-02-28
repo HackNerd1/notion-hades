@@ -1,9 +1,38 @@
 import { NotionDataBaseRequest } from "@/interfaces/notion.interface";
-import { Client } from "@notionhq/client";
+import { APIErrorCode, Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const databaseId = process.env.NOTION_DATABASE_ID;
 const homePageId = process.env.NOTION_HOME_PAGE_ID;
+
+class NotionClientError extends Error {
+  code: APIErrorCode;
+  status: number;
+  headers: any;
+  body?: string;
+  constructor(args: {
+    code: APIErrorCode;
+    status: number;
+    message: string;
+    headers: any;
+    body?: string;
+  }) {
+    super(args.message);
+    this.code = args.code;
+    this.status = args.status;
+    this.headers = args.headers;
+
+    if (!args.body) {
+      this.body = JSON.stringify({
+        message: args.message,
+        status: args.status,
+        code: args.code,
+      })
+    } else {
+      this.body = args.body;
+    }
+  }
+}
 
 export async function notionLibGetPublishedBlogPosts(param?: NotionDataBaseRequest) {
   return await notion.databases.query({
@@ -48,7 +77,12 @@ export async function notionLibGetHomePage() {
   if (homePageId) {
     return await notionLibGetPost(homePageId);
   } else {
-    throw new Error("Missing environment variable NOTION_HOME_PAGE_ID");
+    throw new NotionClientError({
+      code: APIErrorCode.InternalServerError,
+      status: 500,
+      message: "Missing environment variable NOTION_HOME_PAGE_ID",
+      headers: {},
+    })
   }
 }
 

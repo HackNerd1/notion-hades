@@ -14,21 +14,23 @@ export function NotionSearch() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<PageModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const debouncedSearch = useDebounce(async (searchQuery: string) => {
-    setResults([]);
+    setError("");
+
     if (searchQuery.trim() === "") {
+      setResults([]);
       return;
     }
-
     setIsLoading(true);
 
     try {
       const data = await notionApiSearchPosts(searchQuery);
       setResults(data);
-    } catch (err) {
-      // setError("An error occurred while searching. Please try again.");
-      console.error(err);
+    } catch (error: any) {
+      setError(`An error occurred while searching. ${error.message}`);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -41,34 +43,34 @@ export function NotionSearch() {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <section className="relative w-full">
         <input
           type="text"
           value={query}
           onChange={handleInputChange}
           placeholder="Search articles..."
-          className="text-lg w-full px-4 py-4 pl-10 pr-4 text-gray-400 bg-[#353a45] rounded-lg focus:outline-none focus:border-transparent"
+          className="w-full rounded-lg bg-[#353a45] px-4 py-4 pl-10 pr-4 text-lg text-gray-400 focus:border-transparent focus:outline-none"
           aria-label="Search articles"
         />
-        <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400">
           {isLoading ? <IconLoading classNames="animate-spin" size={22} /> : <IconSearch size={22} />}
         </span>
       </section>
 
       {results.length > 0 && (
         <>
-          <section className="pt-4 px-8 text-white font-bold text-lg">Search Results:</section>
+          <section className="px-8 pt-4 text-lg font-bold text-white">Search Results:</section>
           <section>
-            <ul className="bg-gray-800 px-4 max-h-[20rem] rounded-b-md overflow-auto">
+            <ul className="max-h-[20rem] overflow-auto rounded-b-md bg-gray-800 px-4">
               {results.map((result) => (
                 <li key={result.id} className="group transition-all duration-150">
                   <a
                     href={`/post/${result.id}`}
-                    className="block py-2 px-4 rounded-md my-2 text-gray-400 hover:text-white hover:bg-[#4a9dc6] ease-in-out"
+                    className="my-2 block rounded-md px-4 py-2 text-gray-400 ease-in-out hover:bg-[#4a9dc6] hover:text-white"
                   >
-                    <h3 className="font-semibold ">
-                      {result.icon ? <span className="mr-2 text-md">{result.icon}</span> : null} {result.title}
+                    <h3 className="font-semibold">
+                      {result.icon ? <span className="text-md mr-2">{result.icon}</span> : null} {result.title}
                     </h3>
                     {result.description && (
                       <p className="mt-1 text-sm text-gray-500 group-hover:text-white">{result.description}</p>
@@ -90,8 +92,8 @@ export function NotionSearch() {
       )}
 
       {query && results.length === 0 && (
-        <div className="py-4 px-8 text-white font-bold">
-          {isLoading ? "Searching..." : `No results found for "${query}"`}{" "}
+        <div className="px-8 py-4 font-bold text-white">
+          {isLoading ? "Searching..." : error || `No results found for "${query}"`}
         </div>
       )}
     </div>

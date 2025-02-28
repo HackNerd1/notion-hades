@@ -22,10 +22,10 @@ export default function PostLayout(props: PostLayoutProp) {
     fetchHomePage();
   }, []);
   return (
-    <main className="flex flex-col h-full">
-      <header className="px-6 py-2 w-full h-14 text-md">
-        <div className="max-w-6xl m-auto h-full flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 text-lg h-full">
+    <main className="flex h-full flex-col">
+      <header className="text-md h-14 w-full px-6 py-2">
+        <div className="m-auto flex h-full max-w-6xl items-center justify-between">
+          <Link href="/" className="flex h-full items-center gap-2 text-lg text-text-title-default">
             <SkeletonImage
               type="avatar"
               src={siteInfo.page.icon}
@@ -41,7 +41,7 @@ export default function PostLayout(props: PostLayoutProp) {
         {/* <Link href={"/about"}>About</Link>
         <Link href={"/Contract"}>Contract</Link> */}
       </header>
-      <div className="pt-1 pb-12 flex-1">{props.children}</div>
+      <div className="flex-1 pb-12 pt-1">{props.children}</div>
     </main>
   );
 }

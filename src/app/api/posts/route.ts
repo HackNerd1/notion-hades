@@ -7,8 +7,8 @@ export async function POST(request: NextRequest) {
     const posts = await notionLibGetPublishedBlogPosts(body);
 
     return NextResponse.json(posts);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching blog posts:", error);
-    throw NextResponse.json({ body: "Error fetching blog posts" }, { status: 500 });
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
   }
 }

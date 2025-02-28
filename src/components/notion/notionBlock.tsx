@@ -8,7 +8,17 @@ import { SkeletonImage } from "../skeletonImage";
 import { NotionBookmark } from "./notionBookMark";
 
 export function NotionBlock(props: BlockModel) {
-  const { type, id, richText, children, caption, icon, checked, url, language } = props;
+  const {
+    type,
+    id,
+    richText,
+    children,
+    caption,
+    icon,
+    checked,
+    url,
+    language,
+  } = props;
 
   switch (type) {
     case "paragraph":
@@ -19,26 +29,26 @@ export function NotionBlock(props: BlockModel) {
       );
     case "heading_1":
       return (
-        <h1 id={id} className="text-3xl font-bold mt-8 mb-4">
+        <h1 id={id} className="mb-4 mt-8 text-3xl font-bold">
           <NotionRichText richText={richText} isTitle />
         </h1>
       );
     case "heading_2":
       return (
-        <h2 id={id} className="text-2xl font-bold mt-6 mb-3">
+        <h2 id={id} className="mb-3 mt-6 text-2xl font-bold">
           <NotionRichText richText={richText} isTitle />
         </h2>
       );
     case "heading_3":
       return (
-        <h3 id={id} className="text-xl font-bold mt-4 mb-2">
+        <h3 id={id} className="mb-2 mt-4 text-xl font-bold">
           <NotionRichText richText={richText} isTitle />
         </h3>
       );
     case "bulleted_list_item":
     case "numbered_list_item":
       return (
-        <li className="ml-4 mb-2">
+        <li className="mb-2 ml-4">
           <NotionRichText richText={richText} />
           {children?.map((block: any) => (
             <div key={block.id}>
@@ -49,8 +59,13 @@ export function NotionBlock(props: BlockModel) {
       );
     case "to_do":
       return (
-        <div className="flex items-start mb-2">
-          <input type="checkbox" checked={checked} readOnly className="mt-1 mr-2" />
+        <div className="mb-2 flex items-start">
+          <input
+            type="checkbox"
+            checked={checked}
+            readOnly
+            className="mr-2 mt-1"
+          />
           <div>
             <NotionRichText richText={richText} />
             {children?.map((block: any) => (
@@ -82,7 +97,7 @@ export function NotionBlock(props: BlockModel) {
           </NotionCodeBlock>
 
           {caption && (
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="mt-2 text-sm text-gray-500">
               <NotionRichText richText={caption} />
             </p>
           )}
@@ -90,7 +105,7 @@ export function NotionBlock(props: BlockModel) {
       );
     case "quote":
       return (
-        <blockquote className="border-l-4 border-gray-300 pl-4 py-2 mb-4 italic">
+        <blockquote className="mb-4 border-l-4 border-gray-300 py-2 pl-4 italic">
           <NotionRichText richText={richText} />
         </blockquote>
       );
@@ -105,14 +120,18 @@ export function NotionBlock(props: BlockModel) {
             height={400}
             className="rounded-lg"
           />
-          {imgCaption && <figcaption className="text-center text-sm text-gray-500 mt-2">{imgCaption}</figcaption>}
+          {imgCaption && (
+            <figcaption className="mt-2 text-center text-sm text-gray-500">
+              {imgCaption}
+            </figcaption>
+          )}
         </figure>
       );
     case "divider":
       return <NotionDivider />;
     case "callout":
       return (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-4 flex items-start">
+        <div className="mb-4 flex items-start rounded-lg bg-gray-800 p-4">
           {icon && <div className="mr-4 text-2xl">{icon}</div>}
           <div>
             <NotionRichText richText={richText} />

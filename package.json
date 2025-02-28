@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set NOTION_HOME_PAGE_ID=26740ffeab9f4b9a82373207d7b533ff&& set NOTION_DATABASE_ID=9040a7c08a07460fbb535210501d0327&& set NOTION_API_KEY=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&& next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -26,6 +26,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
+    "postcss-import": "^16.1.0",
+    "prettier": "^3.5.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

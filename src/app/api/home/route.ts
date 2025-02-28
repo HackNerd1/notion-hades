@@ -6,6 +6,8 @@ export async function GET() {
     const page = await notionLibGetHomePage();
     return NextResponse.json(page);
   } catch (error: any) {
-    throw NextResponse.json({ error: "Error fetching blog post" });
+    console.log(error);
+
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
   }
 }

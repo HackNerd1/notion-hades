@@ -7,9 +7,9 @@ export interface Title {
 export function Title(props: Title) {
   return (
     <div
-      className={`text-3xl font-semibold mb-4 text-gray-800 dark:text-white flex justify-between align-center overflow-hidden whitespace-nowrap ${props.className}`}
+      className={`align-center mb-4 flex justify-between overflow-hidden whitespace-nowrap text-3xl font-semibold text-white ${props.className}`}
     >
-      <span className="overflow-ellipsis flex-1">{props.title}</span>
+      <span className="flex-1 overflow-ellipsis">{props.title}</span>
       <span className="overflow-ellipsis">{props.children}</span>
     </div>
   );

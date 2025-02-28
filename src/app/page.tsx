@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import HackerBackground from "@/components/hackerBackground";
-import AuthorInfo from "@/components/authorInfo";
-import ThemeToggle from "@/components/themeToggle";
+import SiteInfo from "@/components/siteInfo";
+// import ThemeToggle from "@/components/themeToggle";
 import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
 import LoadMoreButton from "@/components/loadMoreButton";
@@ -13,6 +13,7 @@ import { notionApiGetHomePage, notionApiGetPublishedBlogPosts } from "@/apis/not
 import Skeleton from "@/components/skeleton";
 import { PageModel, PostModel } from "@/models/notion.model";
 import { Search } from "@/components/search";
+import { Alert } from "@/components/alert";
 
 function scrollDown() {
   const targetY = window.innerHeight;
@@ -29,6 +30,8 @@ export default function Home() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [nextCursor, setNextCursor] = useState<string>();
   const [siteInfo, setSiteInfo] = useState<PostModel | undefined>();
+  const [error, setError] = useState("");
+  const [homePageError, setHomePageError] = useState("");
 
   const fetchPosts = async (loadMore = false) => {
     try {
@@ -46,6 +49,7 @@ export default function Home() {
       }
       setNextCursor(hasMore ? next : undefined);
     } catch (error: any) {
+      setError(error.message);
       console.error(error);
     } finally {
       if (loadMore) {
@@ -57,8 +61,12 @@ export default function Home() {
   };
 
   const fetchHomePage = async () => {
-    const result = await notionApiGetHomePage();
-    setSiteInfo(result);
+    try {
+      const result = await notionApiGetHomePage();
+      setSiteInfo(result);
+    } catch (error: any) {
+      setHomePageError(error.message);
+    }
   };
 
   const eventHandlerLoadMore = useCallback(() => {
@@ -72,31 +80,46 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen relative h-full">
+      <div className="relative h-full min-h-screen">
         <HackerBackground />
 
-        <section className="h-full flex items-center justify-center absolute  w-full p-[20%]">
-          {siteInfo ? <AuthorInfo {...siteInfo} /> : <Skeleton type="page"></Skeleton>}
+        <section className="absolute flex h-full w-full items-center justify-center p-[20%]">
+          {siteInfo && <SiteInfo {...siteInfo} />}
+          {homePageError && <Alert message={homePageError} type="error" />}
+          {!siteInfo && !homePageError && <Skeleton type="page"></Skeleton>}
+          {/* {siteInfo ? <SiteInfo {...siteInfo} /> : <Skeleton type="page"></Skeleton>} */}
         </section>
         {/* <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
         </div> */}
         <ScrollDownButton onClick={scrollDown} />
       </div>
-      <div className="min-h-screen max-w-6xl m-auto p-12">
+      <div className="m-auto max-w-6xl p-12">
         <Title title="Recent Posts">
           <Search></Search>
         </Title>
-        {loading ? <Skeleton type="carousel" /> : <BlogCarousel posts={carouselPosts}></BlogCarousel>}
-        {loading ? <Skeleton type="post" count={6} /> : <BlogPostList posts={listPosts}></BlogPostList>}
-        <div className="text-center">
-          <LoadMoreButton
-            loading={searchLoading}
-            hasMore={!!nextCursor}
-            onClick={eventHandlerLoadMore}
-            className="mb-2"
-          ></LoadMoreButton>
-        </div>
+        {loading && (
+          <>
+            <Skeleton type="carousel" />
+            <Skeleton type="post" count={6} />
+          </>
+        )}
+        {!loading && !error && (
+          <>
+            <BlogCarousel posts={carouselPosts}></BlogCarousel>
+            <BlogPostList posts={listPosts}></BlogPostList>
+
+            <div className="text-center">
+              <LoadMoreButton
+                loading={searchLoading}
+                hasMore={!!nextCursor}
+                onClick={eventHandlerLoadMore}
+                className="mb-2"
+              ></LoadMoreButton>
+            </div>
+          </>
+        )}
+        {error && <Alert message={error} type="error" />}
       </div>
     </>
   );
