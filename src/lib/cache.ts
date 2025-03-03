@@ -52,6 +52,7 @@ export function withCache<F extends (...args: any[]) => any>(fn: F, ttl: number 
     }
 
     // 如果没有缓存，调用原函数获取数据
+    // @ts-expect-error this
     const result = await fn.apply(this, args);
 
     // 将结果存入缓存

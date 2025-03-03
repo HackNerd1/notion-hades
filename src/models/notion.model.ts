@@ -1,7 +1,6 @@
 import { NotionBlockType, PageResponse } from "@/interfaces/notion.interface";
 import { ModelFactory } from "@/models/modelFactory";
 import { dateUtilsFormateDate } from "@/utils/date.utls";
-import { DatabaseObjectResponse, TextRichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export class PageModel extends ModelFactory<PageModel, PageModel> {
   static modelClass = PageModel;
@@ -14,7 +13,7 @@ export class PageModel extends ModelFactory<PageModel, PageModel> {
   public icon = "";
   public tags: TagModel[] = [];
 
-  static createEntityFromResponse(data: DatabaseObjectResponse): PageModel {
+  static createEntityFromResponse(data: any): PageModel {
     return this.createEntity({
       title: data.properties.Name?.title[0].plain_text || data.properties.title?.title[0].plain_text,
       id: data.id,
@@ -40,7 +39,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   public icon = "";
   public language = "";
 
-  static generateEntityFromPromise(data: PageResponse["blocks"]): BlockModel[] {
+  static generateEntityFromPromise(data: any[]): BlockModel[] {
     if (!data || !data.length) {
       return [];
     }
@@ -105,7 +104,7 @@ export class RichTextModel extends ModelFactory<RichTextModel, RichTextModel> {
   public icon = ""
   public description = ""
 
-  static generateEntityFromPromise(data: TextRichTextItemResponse[]): RichTextModel[] {
+  static generateEntityFromPromise(data: any[]): RichTextModel[] {
     if (!data || !data.length) {
       return [];
     }

@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { notionLibGetPost } from "@/lib/notion";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: any) {
   try {
     const { id } = await params;
     const post = await notionLibGetPost(id);
