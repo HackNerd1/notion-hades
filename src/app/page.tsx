@@ -91,7 +91,7 @@ export default function Home() {
         {/* <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
         </div> */}
-        <ScrollDownButton onClick={scrollDown} />
+        {siteInfo && <ScrollDownButton onClick={scrollDown} />}
       </div>
       <div className="m-auto max-w-6xl p-12">
         <Title title="Recent Posts">
