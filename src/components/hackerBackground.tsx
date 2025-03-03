@@ -1,5 +1,6 @@
 "use client";
 
+import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { useEffect, useRef } from "react";
 
 // function drawBackgrounds(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, drops: number[]) {
@@ -29,12 +30,13 @@ function generateDrops(columns: number) {
 let animationFrameId: number;
 export default function HackerBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  let drops: number[] = [];
-
-  let columns: number;
 
   useEffect(() => {
+    let drops: number[] = [];
+
+    let columns: number;
     const canvas = canvasRef.current;
+    let prefTime = Date.now();
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
@@ -58,42 +60,41 @@ export default function HackerBackground() {
     drops = generateDrops(columns);
     window.addEventListener("resize", handleResize);
 
-    // drawBackgrounds(ctx, canvas, drops);
-    // Decrease the interval to slow down the animation
-    // drawDrops(ctx, canvas, drops)();
-
     function drawDrops() {
-      ctx!.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
+      if (Date.now() - prefTime > 1000 / HADES_SITE_CONFIG.backgroundFPS) {
+        prefTime = Date.now();
+        ctx!.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
 
-      ctx!.font = "15px monospace";
+        ctx!.font = "15px monospace";
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = String.fromCharCode(Math.random() * 128);
+        for (let i = 0; i < drops.length; i++) {
+          const text = String.fromCharCode(Math.random() * 128);
 
-        // Set the default color to semi-transparent gray
-        ctx!.fillStyle = "rgba(128, 128, 128, 0.5)";
+          // Set the default color to semi-transparent gray
+          ctx!.fillStyle = "rgba(128, 128, 128, 0.5)";
 
-        // Randomly change some characters to green
-        if (Math.random() > 0.99) {
-          ctx!.fillStyle = "#0f0";
+          // Randomly change some characters to green
+          if (Math.random() > 0.99) {
+            ctx!.fillStyle = "#0f0";
+          }
+
+          ctx!.fillText(text, i * 20, drops[i] * 20);
+
+          if (drops[i] * 20 > canvas!.height && Math.random() > 0.99) {
+            drops[i] = 0;
+          }
+
+          drops[i]++;
         }
-
-        ctx!.fillText(text, i * 20, drops[i] * 20);
-
-        if (drops[i] * 20 > canvas!.height && Math.random() > 0.99) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
       }
 
-      animationFrameId = requestAnimationFrame(drawDrops);
+      animationFrameId = requestIdleCallback(drawDrops);
     }
 
     drawDrops();
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelIdleCallback(animationFrameId);
     };
   }, []);
 

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Skeleton from "@/components/skeleton";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ContentTable } from "@/components/notion/contentTable";
 import { NotionBlock } from "@/components/notion/notionBlock";
@@ -12,6 +11,7 @@ import { PostModel, TocModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
 import { SkeletonImage } from "@/components/skeletonImage";
 import { Alert } from "@/components/alert";
+import { IconLoading } from "@/icons/loading";
 
 // function getBannerStyle(url: string) {
 //   return {
@@ -55,8 +55,8 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="flex h-full w-full items-center justify-center px-6">
-        <div className="w-full max-w-6xl">
-          <Skeleton type="page"></Skeleton>
+        <div className="max-w-6xl">
+          <IconLoading classNames="animate-spin" size={32}></IconLoading>
         </div>
       </div>
     );

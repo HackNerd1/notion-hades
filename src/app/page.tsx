@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import HackerBackground from "@/components/hackerBackground";
 import SiteInfo from "@/components/siteInfo";
-// import ThemeToggle from "@/components/themeToggle";
 import ScrollDownButton from "@/components/scrollDownButton";
 import BlogCarousel from "@/components/blogCarousel";
 import LoadMoreButton from "@/components/loadMoreButton";
@@ -14,6 +13,7 @@ import Skeleton from "@/components/skeleton";
 import { PageModel, PostModel } from "@/models/notion.model";
 import { Search } from "@/components/search";
 import { Alert } from "@/components/alert";
+import { IconLoading } from "@/icons/loading";
 
 function scrollDown() {
   const targetY = window.innerHeight;
@@ -86,8 +86,7 @@ export default function Home() {
         <section className="absolute flex h-full w-full items-center justify-center p-[20%]">
           {siteInfo && <SiteInfo {...siteInfo} />}
           {homePageError && <Alert message={homePageError} type="error" />}
-          {!siteInfo && !homePageError && <Skeleton type="page"></Skeleton>}
-          {/* {siteInfo ? <SiteInfo {...siteInfo} /> : <Skeleton type="page"></Skeleton>} */}
+          {!siteInfo && !homePageError && <IconLoading classNames="animate-spin" size={32}></IconLoading>}
         </section>
         {/* <div className="fixed bottom-4 right-4 z-50">
           <ThemeToggle />
