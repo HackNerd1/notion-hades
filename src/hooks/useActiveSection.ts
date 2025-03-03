@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react"
 
-
-
 export function useActiveSection(itemIds: string[]) {
   const [activeId, setActiveId] = useState<string>("")
 

@@ -1,9 +1,8 @@
+import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { NotionDataBaseRequest } from "@/interfaces/notion.interface";
 import { APIErrorCode, Client } from "@notionhq/client";
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const databaseId = process.env.NOTION_DATABASE_ID;
-const homePageId = process.env.NOTION_HOME_PAGE_ID;
+const notion = new Client({ auth: HADES_SITE_CONFIG.notionApiKey });
 
 class NotionClientError extends Error {
   code: APIErrorCode;
@@ -36,7 +35,7 @@ class NotionClientError extends Error {
 
 export async function notionLibGetPublishedBlogPosts(param?: NotionDataBaseRequest) {
   return await notion.databases.query({
-    database_id: databaseId!,
+    database_id: HADES_SITE_CONFIG.databaseId!,
     start_cursor: param?.nextCursor,
     page_size: 9,
     filter: {
@@ -74,8 +73,8 @@ export async function notionLibGetPage(pageId: string) {
 
 // 获取页面
 export async function notionLibGetHomePage() {
-  if (homePageId) {
-    return await notionLibGetPost(homePageId);
+  if (HADES_SITE_CONFIG.homePageId) {
+    return await notionLibGetPost(HADES_SITE_CONFIG.homePageId);
   } else {
     throw new NotionClientError({
       code: APIErrorCode.InternalServerError,
@@ -89,7 +88,7 @@ export async function notionLibGetHomePage() {
 // 搜索页面
 export async function notionLibSearchPosts(query: string) {
   const response = await notion.databases.query({
-    database_id: databaseId!,
+    database_id: HADES_SITE_CONFIG.databaseId!,
     filter: {
       and: [
         {
