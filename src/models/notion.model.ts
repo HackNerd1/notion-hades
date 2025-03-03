@@ -36,7 +36,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   public children: BlockModel[] = [];
   public checked?: boolean = false;
   public caption?: RichTextModel[] = [];
-  public url? = "";
+  public url = "";
   public icon = "";
   public language = "";
 
