@@ -98,13 +98,7 @@ export function NotionBlock(props: BlockModel) {
       const imgCaption = caption ? caption[0]?.content : "";
       return (
         <figure className="mb-4">
-          <SkeletonImage
-            src={url || "/placeholder.svg"}
-            alt={imgCaption || "image"}
-            width={700}
-            height={400}
-            className="rounded-lg"
-          />
+          <SkeletonImage src={url} alt={imgCaption || "image"} width={700} height={400} className="rounded-lg" />
           {imgCaption && <figcaption className="mt-2 text-center text-sm text-gray-500">{imgCaption}</figcaption>}
         </figure>
       );

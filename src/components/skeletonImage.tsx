@@ -4,6 +4,7 @@
 import React from "react";
 import Image, { type ImageProps } from "next/image";
 import Skeleton from "./skeleton";
+import { IconNoImage } from "@/icons/noImage";
 
 interface SkeletonImageProps extends ImageProps {
   imageClassName?: string;
@@ -29,21 +30,34 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
   ...props
 }) => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+
+  if (error || !src) {
+    return (
+      <span
+        className={`flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-gray-800/50 py-24 text-gray-400 ${className}`}
+      >
+        <IconNoImage size={40} classNames="mb-2"></IconNoImage>
+        Failed to load image
+      </span>
+    );
+  }
 
   return (
-    <span className={`relative max-w-full overflow-hidden block ${className}`}>
+    <span className={`relative block max-w-full overflow-hidden ${className}`}>
       {isLoading && (
-        <span className="absolute block top-0 left-0 h-full w-full">
+        <span className="absolute left-0 top-0 block h-full w-full">
           <Skeleton type={type}></Skeleton>
         </span>
       )}
       <Image
-        src={src || "/placeholder.svg"}
+        src={src}
         alt={alt}
         width={width}
         height={height}
         fill={fill}
         onLoad={() => setIsLoading(false)}
+        onError={() => setError(true)}
         className={`rounded-lg transition-opacity duration-300 ${
           isLoading ? "opacity-0" : "opacity-100"
         } ${imageClassName}`}

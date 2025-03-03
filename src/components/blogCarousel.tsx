@@ -93,12 +93,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
             onClick={openLink(`/post/${post.id}`)}
           >
             <Link href={`/post/${post.id}`}>
-              <Image
-                src={post.cover || "/placeholder.svg"}
-                alt={post.title || "blog cover"}
-                fill
-                className="object-cover"
-              />
+              <Image src={post.cover} alt={post.title || "blog cover"} fill className="object-cover" />
             </Link>
             <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white">
               <div className="absolute bottom-0 left-0 w-full p-12" style={getSlideDesStyle(currentIndex, index)}>

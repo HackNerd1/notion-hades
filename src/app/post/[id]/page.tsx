@@ -67,7 +67,7 @@ export default function BlogPost() {
       <section className="px-6">
         <figure className={`m-auto mb-12 aspect-[4/1] h-full min-h-64 w-full max-w-6xl rounded-2xl`}>
           <SkeletonImage
-            src={post.page.cover || "/placeholder.svg"}
+            src={post.page.cover}
             fill
             alt="blog cover"
             className="h-full"

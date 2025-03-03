@@ -53,13 +53,7 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
       <div className="flex flex-col md:flex-row">
         {metadata.image && (
           <div className="relative h-48 flex-[3_1_0] md:h-auto">
-            <SkeletonImage
-              src={metadata.image || "/placeholder.svg"}
-              alt={metadata.title}
-              type="image"
-              fill
-              imageClassName="object-cover"
-            />
+            <SkeletonImage src={metadata.image} alt={metadata.title} type="image" fill imageClassName="object-cover" />
           </div>
         )}
         <div className="min-w-0 flex-[4_1_0] p-4">

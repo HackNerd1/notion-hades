@@ -5,7 +5,7 @@ export default function SiteInfo(props: PostModel) {
   return (
     <div className="mx-auto max-w-2xl p-6 text-center">
       {/* <Image
-        src={author.avatar || "/placeholder.svg"}
+        src={author.avatar }
         alt={author.name}
         width={150}
         height={150}
