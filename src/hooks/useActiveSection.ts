@@ -1,41 +1,33 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+
+
 
 export function useActiveSection(itemIds: string[]) {
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>("")
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const elements = itemIds.map(id => document.getElementById(id))
 
-    // Create an observer for each heading
-    itemIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveId(id);
-              }
-            });
-          },
-          {
-            rootMargin: "0px 0px -50% 0px", // Adjust these values to change when the active state triggers
-            threshold: 0,
-          }
-        );
+    function handleScroll() {
+      const scrollPosition = window.scrollY + window.innerHeight / 5
 
-        observer.observe(element);
-        observers.push(observer);
-      }
-    });
+      elements.forEach(element => {
+        if (element && element.offsetTop < scrollPosition) {
+          setActiveId(element.id)
+        }
+      })
+    }
 
-    // Cleanup observers on unmount
+    handleScroll() // Call once to set initial active section
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
     return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, [itemIds]);
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [itemIds])
 
-  return activeId;
+  return activeId
 }
+

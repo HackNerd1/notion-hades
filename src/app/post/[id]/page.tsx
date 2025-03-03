@@ -89,9 +89,7 @@ export default function BlogPost() {
         <div className="mb-12 flex gap-8">
           <div className="min-w-0 flex-[4_1_0%]">
             {post.blocks.map((block) => (
-              <div key={block.id}>
-                <NotionBlock {...block}></NotionBlock>
-              </div>
+              <NotionBlock {...block} key={block.id}></NotionBlock>
             ))}
           </div>
 

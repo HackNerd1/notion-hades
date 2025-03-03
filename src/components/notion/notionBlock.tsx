@@ -8,17 +8,7 @@ import { SkeletonImage } from "../skeletonImage";
 import { NotionBookmark } from "./notionBookMark";
 
 export function NotionBlock(props: BlockModel) {
-  const {
-    type,
-    id,
-    richText,
-    children,
-    caption,
-    icon,
-    checked,
-    url,
-    language,
-  } = props;
+  const { type, id, richText, children, caption, icon, checked, url, language } = props;
 
   switch (type) {
     case "paragraph":
@@ -60,12 +50,7 @@ export function NotionBlock(props: BlockModel) {
     case "to_do":
       return (
         <div className="mb-2 flex items-start">
-          <input
-            type="checkbox"
-            checked={checked}
-            readOnly
-            className="mr-2 mt-1"
-          />
+          <input type="checkbox" checked={checked} readOnly className="mr-2 mt-1" />
           <div>
             <NotionRichText richText={richText} />
             {children?.map((block: any) => (
@@ -120,11 +105,7 @@ export function NotionBlock(props: BlockModel) {
             height={400}
             className="rounded-lg"
           />
-          {imgCaption && (
-            <figcaption className="mt-2 text-center text-sm text-gray-500">
-              {imgCaption}
-            </figcaption>
-          )}
+          {imgCaption && <figcaption className="mt-2 text-center text-sm text-gray-500">{imgCaption}</figcaption>}
         </figure>
       );
     case "divider":

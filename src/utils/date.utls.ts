@@ -1,3 +1,4 @@
+'use client'
 // 日期格式化
 export function dateUtilsFormateDate(data: any, formate: string) {
   if (!data) {
