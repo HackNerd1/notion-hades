@@ -11,7 +11,7 @@ export default function LoadMoreButton({ hasMore, onClick, loading, className, .
     <button
       onClick={onClick}
       disabled={!hasMore}
-      className={`button-default text-md rounded-md px-4 py-1 hover:bg-button-default-hover disabled:pointer-events-none disabled:cursor-not-allowed ${className}`}
+      className={`button-default text-md rounded-md px-4 py-1 disabled:pointer-events-none disabled:cursor-not-allowed ${className}`}
       {...rest}
     >
       {hasMore ? "More" : "No More"}
