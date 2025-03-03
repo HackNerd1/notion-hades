@@ -12,7 +12,7 @@ interface PostLayoutProp {
 }
 
 export default function PostLayout(props: PostLayoutProp) {
-  const [siteInfo, setSiteInfo] = useState<PostModel>(PostModel.createEntity());
+  const [siteInfo, setSiteInfo] = useState<PostModel>();
   const fetchHomePage = async () => {
     const result = await notionApiGetHomePage();
     setSiteInfo(result);
@@ -25,16 +25,23 @@ export default function PostLayout(props: PostLayoutProp) {
     <main className="flex h-full flex-col">
       <header className="text-md h-14 w-full px-6 py-2">
         <div className="m-auto flex h-full max-w-6xl items-center justify-between">
-          <Link href="/" className="flex h-full items-center gap-2 text-lg text-text-title-default">
-            <SkeletonImage
-              type="avatar"
-              src={siteInfo.page.icon}
-              width={30}
-              height={30}
-              alt="site info"
-              className="max-h-8 max-w-8"
-            ></SkeletonImage>
-            {siteInfo.page.title}
+          <Link
+            href="/"
+            className="flex h-full items-center gap-2 text-lg text-white duration-300 hover:text-text-default-hover"
+          >
+            {siteInfo && (
+              <>
+                <SkeletonImage
+                  type="avatar"
+                  src={siteInfo.page.icon}
+                  width={30}
+                  height={30}
+                  alt="site info"
+                  className="max-h-8 max-w-8"
+                ></SkeletonImage>
+                {siteInfo.page.title}
+              </>
+            )}
           </Link>
           <Search></Search>
         </div>
