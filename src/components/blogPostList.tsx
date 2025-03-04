@@ -1,6 +1,6 @@
 import { PageModel } from "@/models/notion.model";
-import Image from "next/image";
 import Link from "next/link";
+import { SkeletonImage } from "./skeletonImage";
 interface BlogPostListProps {
   posts: PageModel[];
 }
@@ -13,7 +13,14 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
           <article>
             {/* Main image */}
             <div className="relative aspect-[6/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
-              <Image src={post.cover} alt={post.title || "blog cover"} fill className="object-cover" />
+              <SkeletonImage
+                type="image"
+                src={post.cover}
+                alt={post.title || "blog cover"}
+                fill
+                className="h-full"
+                imageClassName="object-cover"
+              />
               {/* Overlay gradient */}
               <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent via-black/20 to-black/80" />
 
