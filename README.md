@@ -2,15 +2,17 @@
 
 ## Feature
 
-blog
+Blog features
 
 - [x] Blog list
 - [x] Blog detail
 - [x] Blog search
 - [x] Mobile view
+- [x] Content of table
 - [ ] Social media image
+- [ ] Comments
 
-notion block
+Supported notion blocks
 
 - [x] Rich text
 - [x] Mention
