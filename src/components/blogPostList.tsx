@@ -33,8 +33,8 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
               {/* {post.description && <p className="text-sm text-gray-300 mb-2 line-clamp-2">{post.description}</p>} */}
               <div className="flex items-center text-sm text-gray-300">
                 {/* <span className="mr-2">•</span> */}
-                <span className="mr-2">{post.publishDate}</span>
-                <span className="mr-2">•</span>
+                <span className="mr-2 text-nowrap">{post.publishDate}</span>
+                <span className="mr-2 overflow-hidden overflow-ellipsis text-nowrap">•</span>
                 <span>{post.tags.map((tag) => tag.name).join(" • ")}</span>
               </div>
             </div>
