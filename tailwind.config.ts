@@ -21,6 +21,7 @@ export default {
         'tag-orange': 'var(--tag-orange)',
         'tag-purple': 'var(--tag-purple)',
         'tag-pink': 'var(--tag-pink)',
+        'tag-default': 'var(--tag-default)',
         'tag-hover': 'var(--tag-hover)',
 
         // border color

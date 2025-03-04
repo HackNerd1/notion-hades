@@ -33,6 +33,10 @@ export const SkeletonImage: React.FC<SkeletonImageProps> = ({
   const [error, setError] = React.useState(false);
 
   if (error || !src) {
+    if ((type = "avatar")) {
+      return <IconNoImage size={20} classNames="mr-2"></IconNoImage>;
+    }
+
     return (
       <span
         className={`flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-gray-800/50 py-24 text-gray-400 ${className}`}

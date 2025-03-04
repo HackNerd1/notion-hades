@@ -76,11 +76,11 @@ export default function BlogPost() {
         </figure>
       </section>
       <article className="m-auto max-w-4xl px-12">
-        <h1 className="mb-4 text-4xl font-bold leading-[1.5]">
+        <h1 className="leading-1 mb-4 text-4xl font-bold md:leading-[1.5]">
           <span className="text-[1.3em]">{post.page.icon}</span> {post.page.title}
         </h1>
 
-        <section className="mb-8 flex gap-4">
+        <section className="mb-8 flex flex-wrap gap-2 md:gap-4">
           {post.page.tags.map((tag, index) => (
             <NotionTag {...tag} key={index}></NotionTag>
           ))}
