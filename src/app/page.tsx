@@ -8,7 +8,7 @@ export default async function Home() {
       <div className="relative h-full min-h-screen">
         <LandingBackground />
       </div>
-      <div className="m-auto max-w-6xl p-12">
+      <div className="m-auto max-w-6xl p-6 md:p-12">
         <LandingMain />
       </div>
     </>

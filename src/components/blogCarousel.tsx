@@ -97,19 +97,19 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
             </Link>
             <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(0deg,rgba(0,0,0,.67),transparent_75%)] text-white">
               <div
-                className="absolute bottom-0 left-0 w-full px-20 py-12 lg:p-12"
+                className="absolute bottom-0 left-0 w-full px-10 py-6 md:px-20 md:py-12"
                 style={getSlideDesStyle(currentIndex, index)}
               >
                 {/* <Link href={`/post/${post.id}`}> */}
-                <h3 className="leading-1 mb-4 line-clamp-3 cursor-pointer overflow-hidden text-ellipsis text-5xl font-semibold text-gray-50 transition-all duration-300 hover:text-text-title-default md:line-clamp-4 md:leading-[1.2]">
-                  {post.icon && <span className="mr-4 text-4xl">{post.icon}</span>}
+                <h3 className="leading-1 mb-4 line-clamp-3 cursor-pointer overflow-hidden text-ellipsis text-2xl font-semibold text-gray-50 transition-all duration-300 hover:text-text-title-default md:line-clamp-4 md:text-5xl md:leading-[1.2]">
+                  {post.icon && <span className="mr-2 text-2xl md:mr-4 md:text-4xl">{post.icon}</span>}
                   {post.title}
                 </h3>
                 {/* </Link> */}
                 {/* <p className="text-xl mb-2">{post.excerpt}</p> */}
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag, i) => (
-                    <NotionTag {...tag} key={i}></NotionTag>
+                    <NotionTag {...tag} key={i} responsive></NotionTag>
                   ))}
                 </div>
               </div>

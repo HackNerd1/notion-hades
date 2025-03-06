@@ -17,7 +17,7 @@ export async function LandingBackground() {
   return (
     <>
       <HackerBackground />
-      <section className="absolute flex h-full w-full items-center justify-center p-[20%]">
+      <section className="absolute flex h-full w-full items-center justify-center p-[10%] md:p-[20%]">
         {siteInfo && <SiteInfo {...siteInfo} />}
         {error && <Alert message={error} type="error" />}
       </section>

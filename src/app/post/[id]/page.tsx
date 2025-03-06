@@ -18,7 +18,9 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
     return (
       <div className="mx-auto">
         <section className="px-6">
-          <figure className={`m-auto mb-12 aspect-[4/1] h-full min-h-64 w-full max-w-6xl rounded-2xl`}>
+          <figure
+            className={`m-auto mb-6 aspect-[4/1] h-full min-h-48 w-full max-w-6xl rounded-2xl md:mb-12 md:min-h-64`}
+          >
             <SkeletonImage
               src={post.page.cover}
               fill
@@ -28,14 +30,14 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
             ></SkeletonImage>
           </figure>
         </section>
-        <article className="m-auto max-w-4xl px-12">
-          <h1 className="leading-1 mb-4 text-4xl font-bold md:leading-[1.5]">
+        <article className="m-auto max-w-4xl px-6 md:px-12">
+          <h1 className="leading-1 mb-2 text-2xl font-bold md:mb-4 md:text-4xl md:leading-[1.5]">
             <span className="text-[1.3em]">{post.page.icon}</span> {post.page.title}
           </h1>
 
-          <section className="mb-8 flex flex-wrap gap-2 md:gap-4">
+          <section className="mb-2 flex flex-wrap gap-2 md:mb-8 md:gap-4">
             {post.page.tags.map((tag, index) => (
-              <NotionTag {...tag} key={index}></NotionTag>
+              <NotionTag {...tag} key={index} responsive></NotionTag>
             ))}
           </section>
 

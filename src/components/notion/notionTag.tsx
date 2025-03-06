@@ -6,16 +6,20 @@ interface NotionTagProps extends TagModel {
   className?: string;
   size?: "sm" | "md" | "lg";
   onClick?: () => any;
+  responsive?: boolean;
 }
 
-export function NotionTag({ size = "md", className, id, name, color }: NotionTagProps) {
+export function NotionTag({ size = "md", className, id, name, color, responsive }: NotionTagProps) {
   const wrapClassName = classNames(
+    "text-white relative ",
+    {
+      "text-sm px-2 py-[0.1rem] rounded-[0.25rem] md:px-3 md:py-1 md:text-md": responsive,
+    },
     {
       "text-xs px-2 py-[0.1rem] rounded-[0.25rem]": size === "sm",
       "text-md px-3 py-1 rounded-md": size === "md",
       "text-lg px-3 py-1 rounded-md": size === "lg",
     },
-    "text-white relative",
     className,
   );
   return (
