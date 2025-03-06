@@ -1,4 +1,3 @@
-"use client";
 import { BlockModel } from "@/models/notion.model";
 import NotionRichText from "./notionRichText";
 import { NotionDivider } from "./notionDivider";

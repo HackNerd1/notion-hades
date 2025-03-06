@@ -1,5 +1,6 @@
 import { LandingBackground } from "@/components/landing/landingBackground";
-import { LandingMain } from "@/components/landing/landingMain";
+import { lazy } from "react";
+const LandingMain = lazy(() => import("@/components/landing/landingMain"));
 
 export default async function Home() {
   return (

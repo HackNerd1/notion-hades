@@ -1,9 +1,11 @@
-import HackerBackground from "@/components/hackerBackground";
 import SiteInfo from "@/components/siteInfo";
-import ScrollDownButton from "@/components/scrollDownButton";
 import { notionApiGetHomePage } from "@/apis/notion-apis";
 import { PostModel } from "@/models/notion.model";
 import { Alert } from "@/components/alert";
+import { lazy } from "react";
+const HackerBackground = lazy(() => import("@/components/hackerBackground"));
+const ScrollDownButton = lazy(() => import("@/components/scrollDownButton"));
+
 export async function LandingBackground() {
   let siteInfo: PostModel | undefined = undefined;
   let error = "";

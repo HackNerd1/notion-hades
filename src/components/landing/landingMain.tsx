@@ -11,7 +11,7 @@ import { PageModel } from "@/models/notion.model";
 import { Search } from "@/components/search";
 import { Alert } from "../alert";
 
-export function LandingMain() {
+export default function LandingMain() {
   const [carouselPosts, setCarouselPosts] = useState<PageModel[]>([]);
   const [listPosts, setListPosts] = useState<PageModel[]>([]);
   const [loading, setLoading] = useState(true);
