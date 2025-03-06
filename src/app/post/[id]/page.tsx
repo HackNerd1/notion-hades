@@ -64,7 +64,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
   }
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const id = (await params).id;
   const post: PostModel = await (await notionApiGetPostPage(id as string)).json();
   return {
