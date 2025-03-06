@@ -1,8 +1,14 @@
 import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { NotionDataBaseRequest } from "@/interfaces/notion.interface";
 import { APIErrorCode, Client } from "@notionhq/client";
+import { withCache } from "./cache";
 
 const notion = new Client({ auth: HADES_SITE_CONFIG.notionApiKey });
+
+enum NotionLibCacheKey {
+  NOTION_LIB_GET_POST = "NOTION_LIB_GET_POST",
+  NOTION_LIB_GET_HOME_PAGE = "NOTION_LIB_GET_HOME_PAGE",
+}
 
 class NotionClientError extends Error {
   code: APIErrorCode;
@@ -53,7 +59,8 @@ export async function notionLibGetPublishedBlogPosts(param?: NotionDataBaseReque
   });
 }
 
-export async function notionLibGetPost(pageId: string) {
+// 获取页面
+export const notionLibGetPost = withCache(async (pageId: string) => {
   const response = await notion.pages.retrieve({ page_id: pageId });
   const blocks = await notion.blocks.children.list({
     block_id: pageId,
@@ -64,7 +71,7 @@ export async function notionLibGetPost(pageId: string) {
     page: response,
     blocks: blocks.results,
   };
-}
+}, NotionLibCacheKey.NOTION_LIB_GET_POST);
 
 // 获取页面
 export async function notionLibGetPage(pageId: string) {
@@ -72,7 +79,7 @@ export async function notionLibGetPage(pageId: string) {
 }
 
 // 获取页面
-export async function notionLibGetHomePage() {
+export const notionLibGetHomePage = withCache(async () => {
   if (HADES_SITE_CONFIG.homePageId) {
     return await notionLibGetPost(HADES_SITE_CONFIG.homePageId);
   } else {
@@ -83,7 +90,7 @@ export async function notionLibGetHomePage() {
       headers: {},
     })
   }
-}
+}, NotionLibCacheKey.NOTION_LIB_GET_HOME_PAGE)
 
 // 搜索页面
 export async function notionLibSearchPosts(query: string) {

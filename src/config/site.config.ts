@@ -18,7 +18,9 @@ class HadesSiteConfig implements Metadata {
   //  notion api key
   notionApiKey = process.env.NOTION_API_KEY;
   // 默认缓存时间
-  cacheTime = 1000 * 60 * 60 * 24 * 15
+  cacheTime = 1000 * 60 * 60 * 24
+  // 最大缓存数
+  maxCache = 50
 }
 
 export const HADES_SITE_CONFIG = new HadesSiteConfig()

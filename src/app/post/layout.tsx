@@ -1,26 +1,16 @@
-"use client";
-
 import { notionApiGetHomePage } from "@/apis/notion-apis";
 import { Search } from "@/components/search";
 import { SkeletonImage } from "@/components/skeletonImage";
-import { PostModel } from "@/models/notion.model";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 interface PostLayoutProp {
   children?: ReactNode;
 }
 
-export default function PostLayout(props: PostLayoutProp) {
-  const [siteInfo, setSiteInfo] = useState<PostModel>();
-  const fetchHomePage = async () => {
-    const result = await notionApiGetHomePage();
-    setSiteInfo(result);
-  };
+export default async function PostLayout(props: PostLayoutProp) {
+  const siteInfo = await (await notionApiGetHomePage()).json();
 
-  useEffect(() => {
-    fetchHomePage();
-  }, []);
   return (
     <main className="flex h-full flex-col">
       <header className="text-md h-14 w-full px-6 py-2">

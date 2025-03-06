@@ -1,49 +1,39 @@
 "use client";
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { IconBars } from "@/icons/bars";
 import { TocModel } from "@/models/notion.model";
 
 interface ContentTableProps {
   data: TocModel[];
-  activeId: string;
 }
 
 export function ContentTable(props: ContentTableProps) {
+  const headingIds = props.data.map((item) => item.id);
+  const activeId = useActiveSection(headingIds);
   return (
     <div className="sticky top-8">
-      <h2 className="font-bold mb-4 flex items-center">
+      <h2 className="mb-4 flex items-center font-bold">
         <IconBars size={20} classNames="mr-2" />
         Contents
       </h2>
       <ul className="relative">
-        <li className="absolute w-[0.1rem] top-0 left-1 h-full rounded bg-border-color"></li>
+        <li className="absolute left-1 top-0 h-full w-[0.1rem] rounded bg-border-color"></li>
         {props.data.map((item) => {
           const isMainHeading = item.type === "heading_1";
           const isSubHeading = item.type === "heading_2";
-          const isActive = props.activeId === item.id;
+          const isActive = activeId === item.id;
 
           return (
             <li
               key={item.id}
-              className={`
-                  py-[0.15rem]
-                  ${isMainHeading ? "" : "mx-1"}
-                  ${isActive ? "text-white" : isSubHeading ? "text-[#aaa]" : "text-gray-200"}
-                  relative
-                  transition-all duration-300
-                `}
+              className={`py-[0.15rem] ${isMainHeading ? "" : "mx-1"} ${isActive ? "text-white" : isSubHeading ? "text-[#aaa]" : "text-gray-200"} relative transition-all duration-300`}
             >
               <div
-                className={`
-                   absolute left-0 top-0 w-[0.1rem] h-full rounded z-2 bg-slate-100 transition-all duration-500
-                  ${isActive ? "opacity-100" : "opacity-0"}
-              `}
+                className={`z-2 absolute left-0 top-0 h-full w-[0.1rem] rounded bg-slate-100 transition-all duration-500 ${isActive ? "opacity-100" : "opacity-0"} `}
               ></div>
               <a
                 href={`#${item.id}`}
-                className={`
-                  block relative pl-4 hover:text-white transition-colors
-                  ${isMainHeading ? "font-medium" : "font-normal"}
-                `}
+                className={`relative block pl-4 transition-colors hover:text-white ${isMainHeading ? "font-medium" : "font-normal"} `}
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById(item.id)?.scrollIntoView({
@@ -53,11 +43,7 @@ export function ContentTable(props: ContentTableProps) {
               >
                 {isMainHeading && (
                   <div
-                    className={`
-                      absolute left-0 top-0 bottom-0 w-0.5 rounded
-                      ${isActive ? "bg-white" : "bg-gray-700"}
-                      transition-colors duration-200
-                    `}
+                    className={`absolute bottom-0 left-0 top-0 w-0.5 rounded ${isActive ? "bg-white" : "bg-gray-700"} transition-colors duration-200`}
                   />
                 )}
                 {item.text}

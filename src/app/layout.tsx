@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { HADES_SITE_CONFIG } from "@/config/site.config";
+import { IconLoading } from "@/icons/loading";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* <ThemeProvider> */}
-        {children}
+        <Suspense
+          fallback={
+            <div className="flex h-full w-full items-center justify-center">
+              <IconLoading size={30} classNames="animate-spin" />
+            </div>
+          }
+        >
+          {children}
+        </Suspense>
 
         {/* </ThemeProvider> */}
       </body>
