@@ -147,13 +147,13 @@ export class TocModel extends ModelFactory<TocModel, TocModel> {
     }
     return blocks
       .filter((block) => block.type === "heading_1" || block.type === "heading_2" || block.type === "heading_3")
-      .map((block) =>
-        TocModel.createEntity({
+      .map((block) => {
+        return TocModel.createEntity({
           id: block.id,
           type: block.type,
-          text: block.richText[0].content,
+          text: block.richText.map((item) => item.content).join(""),
         })
-      );
+      });
   }
 }
 
