@@ -15,11 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: HADES_SITE_CONFIG.title,
-  description: HADES_SITE_CONFIG.description,
-  icons: HADES_SITE_CONFIG.icons,
-};
+export const metadata: Metadata = HADES_SITE_CONFIG.metaData;
 
 export default function RootLayout({
   children,

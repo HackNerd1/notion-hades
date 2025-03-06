@@ -6,6 +6,8 @@ import { PostModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
 import { SkeletonImage } from "@/components/skeletonImage";
 import { Alert } from "@/components/alert";
+import { Metadata } from "next";
+import { HADES_SITE_CONFIG } from "@/config/site.config";
 
 export default async function BlogPost({ params }: { params: { id: string } }) {
   try {
@@ -60,4 +62,12 @@ export default async function BlogPost({ params }: { params: { id: string } }) {
       </div>
     );
   }
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const id = (await params).id;
+  const post: PostModel = await (await notionApiGetPostPage(id as string)).json();
+  return {
+    title: `${post.page.title}${HADES_SITE_CONFIG.metaData.title ? ` | ${HADES_SITE_CONFIG.metaData.title}` : ""}`,
+  };
 }

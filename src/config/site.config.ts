@@ -1,14 +1,7 @@
+import { LRUCache } from "lru-cache";
 import { Metadata } from "next";
 
-class HadesSiteConfig implements Metadata {
-  // 网页标题
-  title = "Hackneard"
-  // 网页描述
-  description = "Passionate web developer and blogger."
-  // 图标
-  icons = {
-    icon: "/favicon.ico"
-  }
+class HadesSiteConfig {
   // 背景帧率
   backgroundFPS = 30
   //  notion 数据库 id
@@ -17,10 +10,30 @@ class HadesSiteConfig implements Metadata {
   homePageId = process.env.NOTION_HOME_PAGE_ID;
   //  notion api key
   notionApiKey = process.env.NOTION_API_KEY;
-  // 默认缓存时间
-  cacheTime = 1000 * 60 * 60 * 24
-  // 最大缓存数
-  maxCache = 50
+
+  metaData: Metadata = {
+    // 网页标题
+    title: "Hackneard",
+    // 网页描述
+    description: "Passionate web developer and blogger.",
+    keywords: "Hackneard,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
+    authors: [{ name: "Hackneard" }],
+    creator: "Hackneard",
+    publisher: "Hackneard",
+    // 图标
+    icons: {
+      icon: "/favicon.ico",
+    },
+    category: "technology",
+  }
+
+  lurCache: LRUCache.Options<any, any, unknown> = {
+    // 默认缓存时间
+    ttl: 1000 * 60 * 60 * 24,
+    // 最大缓存数
+    max: 50
+  }
+
 }
 
 export const HADES_SITE_CONFIG = new HadesSiteConfig()

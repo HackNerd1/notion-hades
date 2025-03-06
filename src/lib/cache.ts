@@ -1,9 +1,6 @@
 import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { LRUCache } from "lru-cache";
-const lurCache = new LRUCache({
-  max: HADES_SITE_CONFIG.maxCache,
-  ttl: HADES_SITE_CONFIG.cacheTime,
-});
+const lurCache = new LRUCache(HADES_SITE_CONFIG.lurCache);
 
 // 缓存装饰器，默认15天过期
 export function withCache<F extends (...args: any[]) => any>(fn: F, key: string): (...args: Parameters<F>) => Promise<Awaited<ReturnType<F>>> {
