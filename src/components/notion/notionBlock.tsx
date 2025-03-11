@@ -18,19 +18,19 @@ export function NotionBlock(props: BlockModel) {
       );
     case "heading_1":
       return (
-        <h1 id={id} className="mb-4 mt-8 text-3xl font-bold">
+        <h1 id={id} className="mb-4 mt-8 text-2xl font-bold md:text-3xl">
           <NotionRichText richText={richText} isTitle />
         </h1>
       );
     case "heading_2":
       return (
-        <h2 id={id} className="mb-3 mt-6 text-2xl font-bold">
+        <h2 id={id} className="mb-3 mt-6 text-xl font-bold md:text-2xl">
           <NotionRichText richText={richText} isTitle />
         </h2>
       );
     case "heading_3":
       return (
-        <h3 id={id} className="mb-2 mt-4 text-xl font-bold">
+        <h3 id={id} className="mb-2 mt-4 text-lg font-bold md:text-xl">
           <NotionRichText richText={richText} isTitle />
         </h3>
       );
@@ -105,9 +105,9 @@ export function NotionBlock(props: BlockModel) {
       return <NotionDivider />;
     case "callout":
       return (
-        <div className="mb-4 flex items-start rounded-lg bg-gray-800 p-4">
-          {icon && <div className="mr-4 text-2xl">{icon}</div>}
-          <div>
+        <div className="mb-4 flex items-start rounded-lg bg-tag-code-block p-4">
+          {icon && <div className="mr-4">{icon}</div>}
+          <div className="min-w-0 flex-1">
             <NotionRichText richText={richText} />
             {children?.map((block: any) => (
               <div key={block.id}>
