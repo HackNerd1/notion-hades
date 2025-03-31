@@ -2,6 +2,7 @@
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { IconBars } from "@/icons/bars";
 import { TocModel } from "@/models/notion.model";
+import { classNames } from "@/utils/main.utils";
 
 interface ContentTableProps {
   data: TocModel[];
@@ -16,42 +17,47 @@ export function ContentTable(props: ContentTableProps) {
         <IconBars size={20} classNames="mr-2" />
         Contents
       </h2>
-      <ul className="relative">
-        <li className="absolute left-1 top-0 h-full w-[0.1rem] rounded bg-border-color"></li>
-        {props.data.map((item) => {
-          const isMainHeading = item.type === "heading_1";
-          const isSubHeading = item.type === "heading_2";
-          const isActive = activeId === item.id;
+      <div className="relative">
+        <div className="absolute top-0 h-full w-[0.1rem] rounded bg-border-color"></div>
+        <ul className="relative">
+          {props.data.map((item) => {
+            const isH1 = item.type === "heading_1";
+            const isH2 = item.type === "heading_2";
+            const isH3 = item.type === "heading_3";
+            const isActive = activeId === item.id;
+            const liClassName = classNames(
+              {
+                "pl-4": isH1,
+                "pl-8 text-sm": isH2,
+                "pl-12 text-xs": isH3,
+                "text-white": isActive,
+                "text-text-title-default": !isActive,
+              },
+              "py-[0.15rem] relative transition-all duration-300 font-bold",
+            );
 
-          return (
-            <li
-              key={item.id}
-              className={`py-[0.15rem] ${isMainHeading ? "" : "mx-1"} ${isActive ? "text-white" : isSubHeading ? "text-[#aaa]" : "text-gray-200"} relative transition-all duration-300`}
-            >
-              <div
-                className={`z-2 absolute left-0 top-0 h-full w-[0.1rem] rounded bg-slate-100 transition-all duration-500 ${isActive ? "opacity-100" : "opacity-0"} `}
-              ></div>
-              <a
-                href={`#${item.id}`}
-                className={`relative block pl-4 transition-colors hover:text-white ${isMainHeading ? "font-medium" : "font-normal"} `}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById(item.id)?.scrollIntoView({
-                    behavior: "smooth",
-                  });
-                }}
-              >
-                {isMainHeading && (
-                  <div
-                    className={`absolute bottom-0 left-0 top-0 w-0.5 rounded ${isActive ? "bg-white" : "bg-gray-700"} transition-colors duration-200`}
-                  />
-                )}
-                {item.text}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li key={item.id} className={liClassName}>
+                <div
+                  className={`z-2 absolute left-0 top-0 h-full w-[0.1rem] rounded bg-slate-100 transition-all duration-500 ${isActive ? "opacity-100" : "opacity-0"} `}
+                ></div>
+                <a
+                  href={`#${item.id}`}
+                  className={`relative block transition-colors hover:text-white`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(item.id)?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }}
+                >
+                  {item.text}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }

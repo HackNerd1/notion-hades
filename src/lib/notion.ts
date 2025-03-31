@@ -1,9 +1,9 @@
 import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { NotionDataBaseRequest } from "@/interfaces/notion.interface";
-import { APIErrorCode, Client } from "@notionhq/client";
+import { APIErrorCode, Client, LogLevel } from "@notionhq/client";
 import { withCache } from "./cache";
 
-const notion = new Client({ auth: HADES_SITE_CONFIG.notionApiKey });
+const notion = new Client({ auth: HADES_SITE_CONFIG.notionApiKey, logLevel: LogLevel.DEBUG, });
 
 enum NotionLibCacheKey {
   NOTION_LIB_GET_POST = "NOTION_LIB_GET_POST",
@@ -61,11 +61,8 @@ export async function notionLibGetPublishedBlogPosts(param?: NotionDataBaseReque
 
 // 获取页面
 export const notionLibGetPost = withCache(async (pageId: string) => {
-  const response = await notion.pages.retrieve({ page_id: pageId });
-  const blocks = await notion.blocks.children.list({
-    block_id: pageId,
-    page_size: 100,
-  });
+  const response = await notionLibRetrievePage(pageId);
+  const blocks = await notionLibGetBlocks(pageId)
 
   return {
     page: response,
@@ -74,7 +71,7 @@ export const notionLibGetPost = withCache(async (pageId: string) => {
 }, NotionLibCacheKey.NOTION_LIB_GET_POST);
 
 // 获取页面
-export async function notionLibGetPage(pageId: string) {
+export async function notionLibRetrievePage(pageId: string) {
   return await notion.pages.retrieve({ page_id: pageId });
 }
 
@@ -131,4 +128,12 @@ export async function notionLibSearchPosts(query: string) {
   })
 
   return response
+}
+
+// 获取block
+export async function notionLibGetBlocks(id: string) {
+  return await notion.blocks.children.list({
+    block_id: id,
+    page_size: 100,
+  })
 }

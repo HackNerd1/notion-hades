@@ -5,9 +5,17 @@ import { NotionCodeBlock } from "./notionCodeBlock";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { SkeletonImage } from "../skeletonImage";
 import { NotionBookmark } from "./notionBookMark";
+import NotionTable from "./notionTable";
+import { NotionLinkToPage } from "./notionLinkToPage";
+import { NotionColumnList } from "./notionColumnList";
+import { NotionToggle } from "./notionToggle";
+import { NotionParagraph } from "./notionParagraph";
+import { NotionH1 } from "./notionH1";
+import { NotionH2 } from "./notionH2";
+import { NotionH3 } from "./notionH3";
 
 export function NotionBlock(props: BlockModel) {
-  const { type, id, richText, children, caption, icon, checked, url, language } = props;
+  const { type, richText, children, caption, icon, checked, url, language, index } = props;
 
   switch (type) {
     case "paragraph":
@@ -30,49 +38,31 @@ export function NotionBlock(props: BlockModel) {
       );
     case "heading_3":
       return (
-        <h3 id={id} className="mb-2 mt-4 text-lg font-bold md:text-xl">
-          <NotionRichText richText={richText} isTitle />
-        </h3>
+        <li className="mb-2">
+          <NotionRichText richText={richText} />
+          {children?.map((block) => <NotionBlock key={block.id} {...block}></NotionBlock>)}
+        </li>
       );
-    case "bulleted_list_item":
     case "numbered_list_item":
       return (
-        <li className="mb-2 ml-4">
+        <li className="mb-2 list-none">
+          {index && <span className="mr-[0.75rem]">{index}.</span>}
           <NotionRichText richText={richText} />
-          {children?.map((block: any) => (
-            <div key={block.id}>
-              <NotionBlock {...block}></NotionBlock>
-            </div>
-          ))}
+          {children?.map((block) => <NotionBlock key={block.id} {...block}></NotionBlock>)}
         </li>
       );
     case "to_do":
       return (
         <div className="mb-2 flex items-start">
-          <input type="checkbox" checked={checked} readOnly className="mr-2 mt-1" />
+          <input type="checkbox" checked={checked} readOnly className="mr-[0.75rem] mt-1 h-4 w-4 accent-green-600" />
           <div>
             <NotionRichText richText={richText} />
-            {children?.map((block: any) => (
-              <div key={block.id}>
-                <NotionBlock {...block}></NotionBlock>
-              </div>
-            ))}
+            {children?.map((block: any) => <NotionBlock key={block.id} {...block}></NotionBlock>)}
           </div>
         </div>
       );
     case "toggle":
-      return (
-        <details className="mb-4">
-          <summary className="cursor-pointer">
-            <NotionRichText richText={richText} />
-          </summary>
-          {children?.map((block: any) => (
-            <div key={block.id} className="ml-4 mt-2">
-              <NotionBlock {...block}></NotionBlock>
-            </div>
-          ))}
-        </details>
-      );
+      return <NotionToggle block={props} />;
     case "code":
       return (
         <div className="mb-4">
@@ -111,14 +101,24 @@ export function NotionBlock(props: BlockModel) {
             <NotionRichText richText={richText} />
             {children?.map((block: any) => (
               <div key={block.id}>
-                <NotionBlock {...block}></NotionBlock>
+                <NotionBlock {...block} />
               </div>
             ))}
           </div>
         </div>
       );
     case "bookmark": // 新增 bookmark 处理逻辑
-      return <>{url && <NotionBookmark url={url}></NotionBookmark>}</>;
+      return <>{url && <NotionBookmark url={url} />}</>;
+    case "table":
+      return <NotionTable {...props} />;
+    case "link_to_page":
+      return <NotionLinkToPage {...props} />;
+    case "column_list":
+      return (
+        <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row">
+          <NotionColumnList {...props} />
+        </div>
+      );
     default:
       console.warn(`Unsupported block type: ${type}`);
 

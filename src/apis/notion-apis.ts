@@ -1,8 +1,8 @@
 
 import { NotionDataBase, NotionDataBaseRequest } from "@/interfaces/notion.interface";
-import { notionLibGetHomePage, notionLibGetPost } from "@/lib/notion";
+import { notionLibGetBlocks, notionLibGetHomePage, notionLibGetPost, notionLibRetrievePage } from "@/lib/notion";
 import { BookMarkModel } from "@/models/bookmark.model";
-import { PageModel, PostModel } from "@/models/notion.model";
+import { BlockModel, PageModel, PostModel, TableModel } from "@/models/notion.model";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { NextResponse } from "next/server";
 
@@ -64,4 +64,39 @@ export async function notionApiSearchPosts(searchQuery: string): Promise<PageMod
 export async function notionApiGetMetaData(url: string): Promise<BookMarkModel> {
   const result = await (await fetch(`/api/bookmark?url=${encodeURIComponent(url)}`)).json();
   return BookMarkModel.createEntityFromResponse(result);
+}
+
+// 获取Tale
+export async function notionApiGetTable(id: string) {
+  try {
+    const response = await notionLibGetBlocks(id);
+    return NextResponse.json(TableModel.generateEntityFromPromise(response.results));
+
+  } catch (error: any) {
+    console.error("Error fetching blog post:", error);
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
+  }
+}
+
+// 获取Blocks
+export async function notionApiGetBlocks(id: string) {
+  try {
+    const response = await notionLibGetBlocks(id);
+    return NextResponse.json(BlockModel.generateEntityFromPromise(response.results));
+
+  } catch (error: any) {
+    console.error("Error fetching blog post:", error);
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
+  }
+}
+
+// 获取页面
+export async function notionApiRetrievePage(id: string) {
+  try {
+    const response = await notionLibRetrievePage(id);
+    return NextResponse.json(PageModel.createEntityFromResponse(response));
+  } catch (error: any) {
+    console.error("Error fetching blog post:", error);
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
+  }
 }

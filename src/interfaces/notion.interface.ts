@@ -21,7 +21,11 @@ export type NotionBlockType =
   | "image"
   | "callout"
   | "external"
-  | "bookmark";
+  | "bookmark"
+  | "mention"
+  | "table"
+  | "link_to_page"
+  | "column_list";
 
 export type NotionColorType =
   | "gray"

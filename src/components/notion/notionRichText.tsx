@@ -1,9 +1,9 @@
-"use client";
-import { RichTextModel } from "@/models/notion.model";
+import { BlockModel, RichTextModel } from "@/models/notion.model";
 import { classNames } from "@/utils/main.utils";
 import Link from "next/link";
-import { SkeletonImage } from "../skeletonImage";
-import { IconLink } from "@/icons/link";
+import { NotionMention } from "./notionMention";
+import { NotionLinkToPage } from "./notionLinkToPage";
+import { Alert } from "../alert";
 
 interface RichTextProps {
   richText?: RichTextModel[];
@@ -13,10 +13,7 @@ interface RichTextProps {
 function renderRichTextStyle(data: RichTextModel, isTitle = false) {
   if (isTitle) {
     return {
-      color:
-        data.color === "default"
-          ? `var(--text-title-default)`
-          : `var(--text-${data.color})`,
+      color: data.color === "default" ? `var(--text-title-default)` : `var(--text-${data.color})`,
     };
   }
   return {
@@ -28,21 +25,11 @@ export default function NotionRichText({ richText, isTitle }: RichTextProps) {
   return (
     <>
       {richText?.map((text, index) => {
-        const {
-          bold,
-          code,
-          italic,
-          strikethrough,
-          underline,
-          content,
-          link,
-          type,
-          icon,
-        } = text;
+        const { bold, code, italic, strikethrough, underline, content, link, type, pageId } = text;
 
         const textClasses = classNames({
           "font-bold": bold,
-          "font-mono bg-gray-800 rounded p-[0.1rem_0.5rem] ": code,
+          "font-mono bg-gray-800 rounded p-[0.1rem_0.5rem]": code,
           italic: italic,
           "line-through": strikethrough,
           underline: underline,
@@ -61,40 +48,26 @@ export default function NotionRichText({ richText, isTitle }: RichTextProps) {
                 </Link>
               );
             }
-
+            return (
+              <span key={index} className={`${textClasses} break-all`} style={renderRichTextStyle(text, isTitle)}>
+                {content}
+              </span>
+            );
+          case "user":
             return (
               <span
                 key={index}
-                className={`${textClasses}`}
-                style={renderRichTextStyle(text, isTitle)}
+                className="rounded text-text-default underline transition-all duration-300 hover:text-text-default-hover"
               >
                 {content}
               </span>
             );
+          case "page":
+            return <NotionLinkToPage key={index} {...BlockModel.createEntity({ pageId })} />;
           case "mention":
-            return (
-              <Link
-                key={index}
-                href={link}
-                target="_blank"
-                className={`${textClasses} inline-flex items-center rounded-md px-2 py-1 align-middle text-sm text-gray-300 transition-all duration-300 hover:bg-slate-600`}
-              >
-                {icon ? (
-                  <SkeletonImage
-                    type="avatar"
-                    src={icon}
-                    alt={content}
-                    width={24}
-                    height={24}
-                    className="mr-2 inline-block w-auto w-fit"
-                    imageClassName="inline-block"
-                  ></SkeletonImage>
-                ) : (
-                  <IconLink size={20} classNames="mr-2"></IconLink>
-                )}
-                {content}
-              </Link>
-            );
+            <NotionMention key={index} {...text} />;
+          default:
+            <Alert key={index} message={`Not support type: ${type}`} type="error"></Alert>;
         }
       })}
     </>

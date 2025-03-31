@@ -30,6 +30,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   static modelClass = BlockModel;
 
   public id = "";
+  public index = 0;
   public type: NotionBlockType | "" = "";
   public richText: RichTextModel[] = [];
   public children: BlockModel[] = [];
@@ -38,8 +39,15 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   public url = "";
   public icon = "";
   public language = "";
+  public tableWidth: number = 0
+  public hasColumnHeader = false
+  public hasRowHeader = false
+  public pageId = ""
+  public hasChildren = false
+  public isToggleable = false
 
   static generateEntityFromPromise(data: any[]): BlockModel[] {
+    let index: number | undefined = undefined
     if (!data || !data.length) {
       return [];
     }
@@ -53,6 +61,12 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         url = value.url;
       }
 
+      if (type === "numbered_list_item") {
+        index = index === undefined ? 1 : index + 1
+      } else {
+        index = undefined
+      }
+
       const result = BlockModel.createEntity<BlockModel>({
         id,
         type,
@@ -61,8 +75,16 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         checked: value.checked,
         caption: value.caption,
         url,
+        index,
         icon: value.icon?.emoji,
         language: value.language,
+        tableWidth: value.table_width,
+        hasColumnHeader: value.has_column_header,
+        hasRowHeader: value.has_row_header,
+        pageId: value.page_id,
+        hasChildren: block.has_children,
+        isToggleable: value.is_toggleable
+        // tableCells: value.table_row?.cells.map((cell: any) => RichTextModel.generateEntityFromPromise(cell))
       });
       return result;
     });
@@ -100,9 +122,10 @@ export class RichTextModel extends ModelFactory<RichTextModel, RichTextModel> {
   public underline = false;
   public content = "";
   public link = "";
-  public type: "text" | "mention" | "" = "";
+  public type: "text" | "mention" | "page" | "user" | "paragraph" | "heading_1" | "heading_2" | "heading_3" | "" = "";
   public icon = ""
   public description = ""
+  public pageId = ""
 
   static generateEntityFromPromise(data: any[]): RichTextModel[] {
     if (!data || !data.length) {
@@ -111,11 +134,30 @@ export class RichTextModel extends ModelFactory<RichTextModel, RichTextModel> {
     return data.map((item) => {
       switch (item.type) {
         case "mention":
-          return RichTextModel.createEntity({
-            ...item.annotations,
-            ...MentionModel.generateEntityFromPromise(item.mention),
-            type: item.type,
-          })
+          switch (item.mention.type) {
+            case "page":
+              return RichTextModel.createEntity({
+                ...item.annotations,
+                pageId: item.mention.page.id,
+                type: item.mention.type,
+              })
+            case "user":
+              return RichTextModel.createEntity({
+                ...item.annotations,
+                content: item.plain_text,
+                type: item.mention.type,
+              })
+            default:
+              const value = item.mention[item.mention.type];
+              return RichTextModel.createEntity({
+                ...item.annotations,
+                link: value.href,
+                content: value.title,
+                icon: value.icon_url,
+                description: value.description,
+                type: item.type,
+              })
+          }
         case "text":
           return RichTextModel.createEntity({
             ...item.annotations,
@@ -157,23 +199,15 @@ export class TocModel extends ModelFactory<TocModel, TocModel> {
   }
 }
 
-export class MentionModel extends ModelFactory<MentionModel, MentionModel> {
-  static modelClass = MentionModel;
-  public link = ""
-  public content = ""
-  public icon = ""
-  public description = ""
+export class TableModel extends ModelFactory<TableModel, TableModel> {
+  static modelClass = TableModel;
 
-  static generateEntityFromPromise(data: any): MentionModel | undefined {
-    if (!data) {
-      return;
+  static generateEntityFromPromise(blocks: any[]): RichTextModel[][][] {
+    if (!blocks || !blocks.length) {
+      return [];
     }
-    const value = data[data.type];
-    return MentionModel.createEntity({
-      link: value.href,
-      content: value.title,
-      icon: value.icon_url,
-      description: value.description
-    })
+    return blocks.map(ele =>
+      ele.table_row?.cells?.map((cell: any) => RichTextModel.generateEntityFromPromise(cell))
+    )
   }
 }
