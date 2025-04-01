@@ -1,6 +1,6 @@
 
 import { NotionDataBase, NotionDataBaseRequest } from "@/interfaces/notion.interface";
-import { notionLibGetBlocks, notionLibGetHomePage, notionLibGetPost, notionLibRetrievePage } from "@/lib/notion";
+import { notionLibGetBlocks, notionLibGetHomePage, notionLibGetPost, notionLibRetrieveHomePage, notionLibRetrievePage } from "@/lib/notion";
 import { BookMarkModel } from "@/models/bookmark.model";
 import { BlockModel, PageModel, PostModel, TableModel } from "@/models/notion.model";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
@@ -43,6 +43,18 @@ export async function notionApiGetHomePage() {
   try {
     const page = await notionLibGetHomePage();
     return NextResponse.json(PostModel.createEntityFromResponse(page));
+  } catch (error: any) {
+    console.log(error);
+
+    return NextResponse.json(JSON.parse(error.body), { status: error.status });
+  }
+};
+
+// 获取首页
+export async function notionApiRetrieveHomePage() {
+  try {
+    const page = await notionLibRetrieveHomePage();
+    return NextResponse.json(PageModel.createEntityFromResponse(page));
   } catch (error: any) {
     console.log(error);
 

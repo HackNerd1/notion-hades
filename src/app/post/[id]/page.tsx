@@ -1,8 +1,8 @@
 import { ContentTable } from "@/components/notion/contentTable";
 import { NotionBlock } from "@/components/notion/notionBlock";
-import { notionApiGetPostPage } from "@/apis/notion-apis";
+import { notionApiGetPostPage, notionApiRetrievePage } from "@/apis/notion-apis";
 import { NotionTag } from "@/components/notion/notionTag";
-import { PostModel } from "@/models/notion.model";
+import { PageModel, PostModel } from "@/models/notion.model";
 import { NotionDivider } from "@/components/notion/notionDivider";
 import { SkeletonImage } from "@/components/skeletonImage";
 import { Alert } from "@/components/alert";
@@ -68,8 +68,31 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const id = (await params).id;
-  const post: PostModel = await (await notionApiGetPostPage(id as string)).json();
+  const page: PageModel = await (await notionApiRetrievePage(id as string)).json();
+  const title = `${page.title}${HADES_SITE_CONFIG.metaData.title ? ` | ${HADES_SITE_CONFIG.metaData.title}` : ""}`;
+  const description = page.description || HADES_SITE_CONFIG.metaData.description || "";
   return {
-    title: `${post.page.title}${HADES_SITE_CONFIG.metaData.title ? ` | ${HADES_SITE_CONFIG.metaData.title}` : ""}`,
+    title,
+    description,
+    openGraph: {
+      type: "article",
+      url: `/post/${id}`,
+      title,
+      description,
+      images: [
+        {
+          url: `/post/${id}/opengraph-image`,
+          alt: title,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`/post/${id}/opengraph-image`],
+    },
   };
 }
