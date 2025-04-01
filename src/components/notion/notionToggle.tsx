@@ -1,36 +1,27 @@
 import { BlockModel } from "@/models/notion.model";
 import NotionRichText from "./notionRichText";
 import { notionApiGetBlocks } from "@/apis/notion-apis";
-import { classNames } from "@/utils/main.utils";
-// import { NotionBlock } from "./notionBlock";
+import { NotionBlock } from "./notionBlock";
 
-interface NotionToggleProps {
-  block: BlockModel;
-  index?: number;
-}
-
-export async function NotionToggle({ block, index = 0 }: NotionToggleProps) {
+export async function NotionToggle(props: BlockModel) {
   let blocks: BlockModel[] | undefined = undefined;
-  if (block.hasChildren) {
-    blocks = await (await notionApiGetBlocks(block.id)).json();
+  if (props.hasChildren) {
+    blocks = await (await notionApiGetBlocks(props.id)).json();
   }
-  const detailsClass = classNames({
-    "pl-4": index !== 0,
-  });
 
-  return block.hasChildren ? (
-    <details className={detailsClass}>
-      <summary className="cursor-pointer">
+  return (
+    <details>
+      <summary className="mb-2 cursor-pointer">
         <span className="ml-1">
-          {/* <NotionBlock {...block} /> */}
-          <NotionRichText richText={block.richText} />
+          <NotionRichText richText={props.richText} />
         </span>
       </summary>
-      {blocks && blocks.map((block) => <NotionToggle key={block.id} block={block} index={index + 1}></NotionToggle>)}
+      {blocks &&
+        blocks.map((block) => (
+          <div key={block.id} className="ml-4 text-base font-normal">
+            <NotionBlock key={block.id} {...block} />
+          </div>
+        ))}
     </details>
-  ) : (
-    <span className="pl-5">
-      <NotionRichText richText={block.richText} />
-    </span>
   );
 }

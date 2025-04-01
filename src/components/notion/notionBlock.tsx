@@ -19,24 +19,14 @@ export function NotionBlock(props: BlockModel) {
 
   switch (type) {
     case "paragraph":
-      return (
-        <p className="mb-4">
-          <NotionRichText richText={richText} />
-        </p>
-      );
+      return <NotionParagraph {...props} />;
     case "heading_1":
-      return (
-        <h1 id={id} className="mb-4 mt-8 text-2xl font-bold md:text-3xl">
-          <NotionRichText richText={richText} isTitle />
-        </h1>
-      );
+      return <NotionH1 {...props} />;
     case "heading_2":
-      return (
-        <h2 id={id} className="mb-3 mt-6 text-xl font-bold md:text-2xl">
-          <NotionRichText richText={richText} isTitle />
-        </h2>
-      );
+      return <NotionH2 {...props} />;
     case "heading_3":
+      return <NotionH3 {...props} />;
+    case "bulleted_list_item":
       return (
         <li className="mb-2">
           <NotionRichText richText={richText} />
@@ -62,7 +52,7 @@ export function NotionBlock(props: BlockModel) {
         </div>
       );
     case "toggle":
-      return <NotionToggle block={props} />;
+      return <NotionToggle {...props} />;
     case "code":
       return (
         <div className="mb-4">
