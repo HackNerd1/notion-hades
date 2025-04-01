@@ -14,7 +14,7 @@ Blog features
 - [x] Blog search
 - [x] Mobile view
 - [x] Table of contents
-- [ ] Social media image
+- [x] Social media image
 - [ ] Comments
 
 Supported notion blocks
@@ -39,6 +39,7 @@ Supported notion blocks
 - [x] mention person
 - [ ] Video
 - [ ] Audio
+- [ ] File
 - [ ] Database
 - [ ] Chart
 - [ ] Button

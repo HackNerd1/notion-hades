@@ -11,13 +11,13 @@ export default async function NotionTable(props: BlockModel) {
     const body = props.hasColumnHeader ? blocks.slice(1) : blocks;
 
     return (
-      <div className="mb-6 overflow-x-auto">
+      <div className="mb-6 overflow-auto overflow-x-auto">
         <table className="min-w-full overflow-hidden rounded-md">
           <thead>
             <tr className="bg-gray-700 text-left font-semibold">
               {props.hasRowHeader &&
                 headers.map((cell, i: number) => (
-                  <th key={i} className="px-4 py-3.5">
+                  <th key={i} className="min-w-20 px-4 py-3.5">
                     <NotionRichText richText={cell} />
                   </th>
                 ))}

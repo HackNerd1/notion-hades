@@ -48,7 +48,7 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative mb-4 block overflow-hidden rounded-lg border border-gray-700 transition-shadow duration-300 hover:shadow-md"
+      className="group relative mb-4 block overflow-hidden rounded-lg border border-border-color transition-shadow duration-300 hover:shadow-md"
     >
       <div className="flex flex-col md:flex-row">
         {metadata.image && (

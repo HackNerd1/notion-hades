@@ -44,7 +44,7 @@ export function NotionBlock(props: BlockModel) {
     case "to_do":
       return (
         <div className="mb-2 flex items-start">
-          <input type="checkbox" checked={checked} readOnly className="mr-[0.75rem] mt-1 h-4 w-4 accent-green-600" />
+          <input type="checkbox" checked={checked} readOnly className="mr-[0.75rem] mt-1 h-4 w-4 accent-text-gray" />
           <div>
             <NotionRichText richText={richText} />
             {children?.map((block: any) => <NotionBlock key={block.id} {...block}></NotionBlock>)}

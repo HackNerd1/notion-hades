@@ -1,6 +1,7 @@
-import { notionApiGetHomePage } from "@/apis/notion-apis";
+import { notionApiRetrieveHomePage } from "@/apis/notion-apis";
 import { Search } from "@/components/search";
 import { SkeletonImage } from "@/components/skeletonImage";
+import { PageModel } from "@/models/notion.model";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -9,7 +10,7 @@ interface PostLayoutProp {
 }
 
 export default async function PostLayout(props: PostLayoutProp) {
-  const siteInfo = await (await notionApiGetHomePage()).json();
+  const siteInfo: PageModel = await (await notionApiRetrieveHomePage()).json();
   return (
     <>
       <main className="flex h-full flex-col">
@@ -23,13 +24,13 @@ export default async function PostLayout(props: PostLayoutProp) {
                 <>
                   <SkeletonImage
                     type="avatar"
-                    src={siteInfo.page.icon}
+                    src={siteInfo.icon}
                     width={30}
                     height={30}
                     alt="site info"
                     className="max-h-8 max-w-8"
                   ></SkeletonImage>
-                  {siteInfo.page.title}
+                  {siteInfo.title}
                 </>
               )}
             </Link>
