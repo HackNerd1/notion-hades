@@ -65,9 +65,9 @@ export default function NotionRichText({ richText, isTitle }: RichTextProps) {
           case "page":
             return <NotionLinkToPage key={index} {...BlockModel.createEntity({ pageId })} />;
           case "mention":
-            <NotionMention key={index} {...text} />;
+            return <NotionMention key={index} {...text} />;
           default:
-            <Alert key={index} message={`Not support type: ${type}`} type="error"></Alert>;
+            return <Alert key={index} message={`Not support type: ${type}`} type="error"></Alert>;
         }
       })}
     </>
