@@ -33,7 +33,10 @@ Supported notion blocks
 - [x] image
 - [x] callout
 - [x] paragraph
-- [ ] Table
+- [x] Table
+- [x] toggle
+- [x] mention page
+- [x] mention person
 - [ ] Video
 - [ ] Audio
 - [ ] Database
