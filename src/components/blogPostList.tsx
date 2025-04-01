@@ -9,7 +9,7 @@ export default function BlogPostList({ posts }: BlogPostListProps) {
   return (
     <div className="mb-8 grid cursor-pointer grid-cols-1 grid-rows-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {posts.map((post) => (
-        <Link href={`/post/${post.id}`} key={post.id} className="group">
+        <Link href={`/post/${post.id}`} key={post.id} className="group" target="_blank">
           <article>
             {/* Main image */}
             <div className="relative aspect-[6/3] w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">

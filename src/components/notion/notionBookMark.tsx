@@ -53,7 +53,14 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
       <div className="flex flex-col md:flex-row">
         {metadata.image && (
           <div className="relative h-48 flex-[3_1_0] md:h-auto">
-            <SkeletonImage src={metadata.image} alt={metadata.title} type="image" fill imageClassName="object-cover" />
+            <SkeletonImage
+              src={metadata.image}
+              alt={metadata.title}
+              type="image"
+              fill
+              className="h-full"
+              imageClassName="object-cover "
+            />
           </div>
         )}
         <div className="min-w-0 flex-[4_1_0] p-4">
@@ -61,7 +68,7 @@ export function NotionBookmark({ url }: BookmarkBlockProps) {
             {metadata.favicon && (
               <SkeletonImage type="avatar" src={metadata.favicon} alt="" width={32} height={32} className="mr-2" />
             )}
-            <h3 className="flex-1 overflow-hidden overflow-ellipsis text-nowrap text-lg font-semibold text-blue-400">
+            <h3 className="flex-1 overflow-hidden overflow-ellipsis text-nowrap text-lg font-semibold text-white">
               {metadata.title}
             </h3>
           </div>

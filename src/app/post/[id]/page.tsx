@@ -19,7 +19,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
       <div className="mx-auto">
         <section className="px-6">
           <figure
-            className={`m-auto mb-6 aspect-[4/1] h-full min-h-48 w-full max-w-6xl rounded-2xl md:mb-12 md:min-h-64`}
+            className={`m-auto mb-6 aspect-[4/1] h-full min-h-48 w-full max-w-7xl rounded-2xl md:mb-12 md:min-h-64`}
           >
             <SkeletonImage
               src={post.page.cover}
@@ -30,7 +30,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
             ></SkeletonImage>
           </figure>
         </section>
-        <article className="m-auto max-w-4xl px-6 md:px-12">
+        <article className="m-auto max-w-5xl px-6 md:px-12">
           <h1 className="leading-1 mb-2 text-2xl font-bold md:mb-4 md:text-4xl md:leading-[1.5]">
             <span className="text-[1.3em]">{post.page.icon}</span> {post.page.title}
           </h1>
