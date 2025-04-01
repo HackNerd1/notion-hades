@@ -14,7 +14,7 @@ export default async function PostLayout(props: PostLayoutProp) {
     <>
       <main className="flex h-full flex-col">
         <header className="text-md h-14 w-full px-6 py-2">
-          <div className="m-auto flex h-full max-w-6xl items-center justify-between">
+          <div className="m-auto flex h-full max-w-7xl items-center justify-between">
             <Link
               href="/"
               className="flex h-full items-center gap-2 text-lg text-white duration-300 hover:text-text-default-hover"
