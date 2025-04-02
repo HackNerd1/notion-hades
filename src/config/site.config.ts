@@ -13,13 +13,13 @@ class HadesSiteConfig {
 
   metaData: Metadata = {
     // 网页标题
-    title: "Notion Hades",
+    title: "Hacknerd",
     // 网页描述
     description: "Passionate web developer and blogger.",
-    keywords: "Notion Hades,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
-    authors: [{ name: "Notion Hades" }],
-    creator: "Notion Hades",
-    publisher: "Notion Hades",
+    keywords: "Hacknerd,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
+    authors: [{ name: "Hacknerd" }],
+    creator: "Hacknerd",
+    publisher: "Hacknerd",
     // 图标
     icons: {
       icon: "/favicon.ico",
