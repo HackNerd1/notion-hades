@@ -48,7 +48,8 @@ Supported notion blocks
 
 ## Demos
 
-- [Demo](demo.hackerd.com) 👈 Click here to see online demo.
+- [Post example](https://blog.hacknerd.top/post/1c8985ec-c354-80c8-8eaa-fdc28fabb06e)
+- [My Site](https://blog.hackerd.top)
 
 ## Requirements
 

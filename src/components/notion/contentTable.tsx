@@ -33,7 +33,7 @@ export function ContentTable(props: ContentTableProps) {
                 "text-white": isActive,
                 "text-text-title-default": !isActive,
               },
-              "py-[0.15rem] relative transition-all duration-300 font-bold",
+              "py-[0.15rem] relative transition-all duration-300",
             );
 
             return (

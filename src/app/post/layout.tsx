@@ -17,7 +17,7 @@ export default async function PostLayout(props: PostLayoutProp) {
           <div className="m-auto flex h-full max-w-7xl items-center justify-between">
             <Link
               href="/"
-              className="flex h-full items-center gap-2 text-lg text-white duration-300 hover:text-text-default-hover"
+              className="flex h-full items-center gap-2 text-lg font-bold text-white duration-300 hover:text-text-default-hover"
             >
               <>
                 <SkeletonImage
