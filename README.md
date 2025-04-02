@@ -41,7 +41,7 @@ Supported notion blocks
 - [x] mention person
 - [x] Video
 - [x] Audio
-- [ ] File
+- [x] File
 - [ ] Database
 - [ ] Chart
 - [ ] Button

@@ -27,7 +27,8 @@ export type NotionBlockType =
   | "link_to_page"
   | "column_list"
   | "video"
-  | "audio";
+  | "audio"
+  | "file";
 
 export type NotionColorType =
   | "gray"

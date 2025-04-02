@@ -45,6 +45,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
   public pageId = ""
   public hasChildren = false
   public isToggleable = false
+  public fileName = ""
 
   static generateEntityFromPromise(data: any[]): BlockModel[] {
     let index: number | undefined = undefined
@@ -62,6 +63,8 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
       } else if (type === "video") {
         url = value.type === "external" ? value.external?.url : value.file?.url;
       } else if (type === "audio") {
+        url = value.type === "external" ? value.external?.url : value.file?.url;
+      } else if (type === "file") {
         url = value.type === "external" ? value.external?.url : value.file?.url;
       }
 
@@ -81,6 +84,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         url,
         index,
         icon: value.icon?.emoji,
+        fileName: value.name,
         language: value.language,
         tableWidth: value.table_width,
         hasColumnHeader: value.has_column_header,
