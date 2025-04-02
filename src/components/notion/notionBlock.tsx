@@ -13,6 +13,8 @@ import { NotionParagraph } from "./notionParagraph";
 import { NotionH1 } from "./notionH1";
 import { NotionH2 } from "./notionH2";
 import { NotionH3 } from "./notionH3";
+import { NotionVideo } from "./notionVideo";
+import { NotionAudio } from "./notionAudio";
 
 export function NotionBlock(props: BlockModel) {
   const { type, richText, children, caption, icon, checked, url, language, index } = props;
@@ -109,6 +111,10 @@ export function NotionBlock(props: BlockModel) {
           <NotionColumnList {...props} />
         </div>
       );
+    case "video":
+      return <NotionVideo {...props} />;
+    case "audio":
+      return <NotionAudio {...props} />;
     default:
       console.warn(`Unsupported block type: ${type}`);
 

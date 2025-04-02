@@ -9,6 +9,8 @@ enum NotionLibCacheKey {
   NOTION_LIB_GET_POST = "NOTION_LIB_GET_POST",
   NOTION_LIB_GET_HOME_PAGE = "NOTION_LIB_GET_HOME_PAGE",
   NOTION_LIB_RETRIEVE_HOME_PAGE = "NOTION_LIB_RETRIEVE_HOME_PAGE",
+  NOTION_LIB_RETRIEVE_PAGE = "NOTION_LIB_RETRIEVE_PAGE",
+  NOTION_LIB_GET_BLOCKS = "NOTION_LIB_GET_BLOCKS"
 }
 
 class NotionClientError extends Error {
@@ -72,9 +74,9 @@ export const notionLibGetPost = withCache(async (pageId: string) => {
 }, NotionLibCacheKey.NOTION_LIB_GET_POST);
 
 // 获取页面
-export async function notionLibRetrievePage(pageId: string) {
+export const notionLibRetrievePage = withCache(async (pageId: string) => {
   return await notion.pages.retrieve({ page_id: pageId });
-}
+}, NotionLibCacheKey.NOTION_LIB_RETRIEVE_PAGE)
 
 // 获取页面
 export const notionLibGetHomePage = withCache(async () => {
@@ -147,9 +149,8 @@ export async function notionLibSearchPosts(query: string) {
 }
 
 // 获取block
-export async function notionLibGetBlocks(id: string) {
+export const notionLibGetBlocks = withCache(async (id: string) => {
   return await notion.blocks.children.list({
-    block_id: id,
-    page_size: 100,
+    block_id: id
   })
-}
+}, NotionLibCacheKey.NOTION_LIB_GET_BLOCKS)

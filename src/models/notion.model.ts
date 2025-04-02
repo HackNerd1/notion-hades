@@ -59,6 +59,10 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         url = value.type === "external" ? value.external?.url : value.file?.url;
       } else if (type === "bookmark") {
         url = value.url;
+      } else if (type === "video") {
+        url = value.type === "external" ? value.external?.url : value.file?.url;
+      } else if (type === "audio") {
+        url = value.type === "external" ? value.external?.url : value.file?.url;
       }
 
       if (type === "numbered_list_item") {
@@ -73,7 +77,7 @@ export class BlockModel extends ModelFactory<BlockModel, BlockModel> {
         richText: RichTextModel.generateEntityFromPromise(value.rich_text),
         children: value.children,
         checked: value.checked,
-        caption: value.caption,
+        caption: RichTextModel.generateEntityFromPromise(value.caption),
         url,
         index,
         icon: value.icon?.emoji,

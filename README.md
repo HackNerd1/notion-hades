@@ -37,8 +37,8 @@ Supported notion blocks
 - [x] toggle
 - [x] mention page
 - [x] mention person
-- [ ] Video
-- [ ] Audio
+- [x] Video
+- [x] Audio
 - [ ] File
 - [ ] Database
 - [ ] Chart

@@ -25,7 +25,9 @@ export type NotionBlockType =
   | "mention"
   | "table"
   | "link_to_page"
-  | "column_list";
+  | "column_list"
+  | "video"
+  | "audio";
 
 export type NotionColorType =
   | "gray"
