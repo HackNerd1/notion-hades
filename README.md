@@ -1,11 +1,13 @@
 # Notion Hades
 
-![landing page](./docs/landing%20page.gif)
+<!-- ![landing page](./docs/landing%20page.gif)
 ![post list](./docs/post%20list.gif)
 ![article](./docs/article.gif)
-![blog detail](./docs/search.gif)
+![blog detail](./docs/search.gif) -->
 
-## Feature
+![Main page](./docs/Main%20page.png)
+
+## Features
 
 Blog features
 
@@ -44,7 +46,36 @@ Supported notion blocks
 - [ ] Chart
 - [ ] Button
 
+## Demos
+
+- [Demo](demo.hackerd.com) 👈 Click here to see online demo.
+
+## Requirements
+
+This project require `Node` >= 20.
+
 ## Getting Started
+
+Firstly, create `.env` file and set environment variables:
+
+```shell
+NOTION_HOME_PAGE_ID=<your Home Page Id>
+NOTION_DATABASE_ID=<your Database Id>
+NOTION_API_KEY=<your Internal Integration Secret>
+```
+
+Wonder how to get these variables? See 👉 [How to get Env Variables](#how-to-get-env-variables).
+
+Secondly, run these command:
+
+```shell
+> npm install
+> npm run dev
+```
+
+Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## How to get Env Variables
 
 First, click 👉 [Notion hades template](https://aback-degree-5d2.notion.site/Notion-Hades-1ac985ecc354807192a4fa16c65409a5?pvs=4) to copy **_notion hades template_** to notion database.
 ![Notion hades template](./docs//notion%20template.png)
@@ -52,7 +83,7 @@ Secondly, follow this documents [https://developers.notion.com/docs/authorizatio
 
 ![integration](./docs/intergration.png)
 
-Thirdly, click integration you created, and copy `Internal Integration Secret`
+Thirdly, click integration you created, and copy to get your `Internal Integration Secret`
 ![created integration](./docs/integration%20outcome.png)
 ![My integration](./docs/My%20integration.png)
 ![Copy Internal Integration Secret](./docs/Internal%20Integration%20Secret.png)
@@ -67,30 +98,12 @@ Last but not least, get `Home Page ID` and `Database ID` from share link.
 You should get some thing like this:
 
 ```plain text
-https://www.notion.so/<your page id>?v=<some hash>&pvs=4
+https://www.notion.so/<your Home Page Id>?v=<some hash>&pvs=4
 
 or
 
-https://aback-degree-5d2.notion.site/Notion-Hades-<your database ID>?pvs=4
+https://aback-degree-5d2.notion.site/Notion-Hades-<your Database Id>?pvs=4
 ```
-
-Lastly, install dependencies:
-
-```shell
-> npm install
-```
-
-And run the development server:
-
-```shell
-# linux/macOS
-> export export NOTION_HOME_PAGE_ID=<your Home Page Id>&& export NOTION_DATABASE_ID=<your Database Id>&& export NOTION_API_KEY=<your Internal Integration Secret>&& npm run dev
-
-# windows
-> set export NOTION_HOME_PAGE_ID=<your Home Page Id>&& set NOTION_DATABASE_ID=<your Database Id>&& set NOTION_API_KEY=<your Internal Integration Secret> && npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deploy on Vercel
 

@@ -1,7 +1,6 @@
-import { notionApiRetrieveHomePage } from "@/apis/notion-apis";
 import { Search } from "@/components/search";
 import { SkeletonImage } from "@/components/skeletonImage";
-import { PageModel } from "@/models/notion.model";
+import { HADES_SITE_CONFIG } from "@/config/site.config";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -10,7 +9,7 @@ interface PostLayoutProp {
 }
 
 export default async function PostLayout(props: PostLayoutProp) {
-  const siteInfo: PageModel = await (await notionApiRetrieveHomePage()).json();
+  // const siteInfo: PageModel = await (await notionApiRetrieveHomePage()).json();
   return (
     <>
       <main className="flex h-full flex-col">
@@ -20,19 +19,17 @@ export default async function PostLayout(props: PostLayoutProp) {
               href="/"
               className="flex h-full items-center gap-2 text-lg text-white duration-300 hover:text-text-default-hover"
             >
-              {siteInfo && (
-                <>
-                  <SkeletonImage
-                    type="avatar"
-                    src={siteInfo.icon}
-                    width={30}
-                    height={30}
-                    alt="site info"
-                    className="max-h-8 max-w-8"
-                  ></SkeletonImage>
-                  {siteInfo.title}
-                </>
-              )}
+              <>
+                <SkeletonImage
+                  type="avatar"
+                  src={(HADES_SITE_CONFIG.metaData.icons as any)?.icon}
+                  width={30}
+                  height={30}
+                  alt="site info"
+                  className="max-h-8 max-w-8"
+                ></SkeletonImage>
+                {HADES_SITE_CONFIG.metaData.title}
+              </>
             </Link>
             <Search></Search>
           </div>

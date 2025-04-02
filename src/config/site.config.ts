@@ -4,22 +4,22 @@ import { Metadata } from "next";
 class HadesSiteConfig {
   // 背景帧率
   backgroundFPS = 30
-  //  notion 数据库 id
+  //  notion 数据库 id (required)
   databaseId = process.env.NOTION_DATABASE_ID;
-  //  notion 首页 id
+  //  notion 首页 id (required)
   homePageId = process.env.NOTION_HOME_PAGE_ID;
-  //  notion api key
+  //  notion api key (required)
   notionApiKey = process.env.NOTION_API_KEY;
 
   metaData: Metadata = {
     // 网页标题
-    title: "Hackneard",
+    title: "Notion Hades",
     // 网页描述
     description: "Passionate web developer and blogger.",
-    keywords: "Hackneard,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
-    authors: [{ name: "Hackneard" }],
-    creator: "Hackneard",
-    publisher: "Hackneard",
+    keywords: "Notion Hades,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
+    authors: [{ name: "Notion Hades" }],
+    creator: "Notion Hades",
+    publisher: "Notion Hades",
     // 图标
     icons: {
       icon: "/favicon.ico",
