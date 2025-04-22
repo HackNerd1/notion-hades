@@ -17,6 +17,7 @@ Blog features
 - [x] Mobile view
 - [x] Table of contents
 - [x] Social media image
+- [x] Auto-generated sitemap
 - [ ] Comments
 
 Supported notion blocks
@@ -63,6 +64,7 @@ Firstly, create `.env` file and set environment variables:
 NOTION_HOME_PAGE_ID=<your Home Page Id>
 NOTION_DATABASE_ID=<your Database Id>
 NOTION_API_KEY=<your Internal Integration Secret>
+SITE_URL=<your Site URL>
 ```
 
 Wonder how to get these variables? See 👉 [How to get Env Variables](#how-to-get-env-variables).
@@ -108,6 +110,11 @@ https://aback-degree-5d2.notion.site/Notion-Hades-<your Database Id>?pvs=4
 
 ## Deploy on Vercel
 
-You can deploy your app with Vercel. Remember to set `NOTION_HOME_PAGE_ID`, `NOTION_DATABASE_ID` and `NOTION_API_KEY` in Vercel environment variables.
+You can deploy your app with Vercel. Remember to set these environment variables in Vercel:
+- `NOTION_HOME_PAGE_ID`
+- `NOTION_DATABASE_ID`
+- `NOTION_API_KEY`
+- `SITE_URL` (required for sitemap generation)
+
 ![Deploy on vercel](./docs/Deploy%20on%20vercel.png)
 You can check out [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
