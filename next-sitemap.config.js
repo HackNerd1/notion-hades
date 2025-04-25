@@ -15,6 +15,10 @@ module.exports = {
         allow: '/',
       },
     ],
+    transformRobotsTxt: async (config, robotsTxt) => {
+      // 移除包含 Host 的行
+      return robotsTxt.split('\n').filter(line => !line.startsWith('# Host') && !line.startsWith('Host:')).join('\n');
+    },
   },
   additionalPaths: async (config) => {
     // 获取所有文章
