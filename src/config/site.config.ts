@@ -11,11 +11,14 @@ class HadesSiteConfig {
   //  notion api key (required)
   notionApiKey = process.env.NOTION_API_KEY;
 
+  // 作者名称
+  author = "Hacknerd";
+
   metaData: Metadata = {
     // 网页标题
     title: "Hacknerd",
     // 网页描述
-    description: "Passionate web developer and blogger.",
+    description: "A modern blog powered by Notion and Next.js",
     keywords: "Hacknerd,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
     authors: [{ name: "Hacknerd" }],
     creator: "Hacknerd",

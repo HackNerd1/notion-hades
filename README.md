@@ -18,6 +18,7 @@ Blog features
 - [x] Table of contents
 - [x] Social media image
 - [x] Auto-generated sitemap
+- [x] JSON-LD structured data
 - [ ] Comments
 
 Supported notion blocks
@@ -46,6 +47,38 @@ Supported notion blocks
 - [ ] Database
 - [ ] Chart
 - [ ] Button
+
+## SEO Features
+
+### Sitemap Generation
+
+The project automatically generates and updates sitemaps for better search engine indexing.
+
+### JSON-LD Structured Data
+
+This project implements JSON-LD structured data for better SEO:
+
+- Website schema on all pages
+- BlogPosting schema on blog posts
+- BreadcrumbList schema on blog posts
+
+The structured data is automatically generated based on your content and configuration.
+
+### Setup SEO Features
+
+1. Set the required environment variables in your `.env` file:
+```shell
+SITE_URL=https://your-domain.com
+```
+
+2. Configure your site information in `src/config/site.config.ts`:
+```typescript
+metaData: {
+  title: "Your Site Name",
+  description: "Your site description",
+  author: "Your Name"
+}
+```
 
 ## Demos
 

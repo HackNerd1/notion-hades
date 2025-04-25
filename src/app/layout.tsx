@@ -4,6 +4,8 @@ import "../styles/globals.css";
 import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { IconLoading } from "@/icons/loading";
 import { Suspense } from "react";
+import JsonLd from "@/components/JsonLd";
+import { generateWebsiteJsonLd } from "@/utils/jsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,8 +24,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteJsonLd = generateWebsiteJsonLd({
+    name: HADES_SITE_CONFIG.metaData.title?.toString() || "",
+    description: HADES_SITE_CONFIG.metaData.description?.toString() || "",
+    siteUrl: process.env.SITE_URL || "",
+  });
+
   return (
     <html lang="en">
+      <head>
+        <JsonLd data={websiteJsonLd} />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* <ThemeProvider> */}
         <Suspense
