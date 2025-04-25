@@ -16,7 +16,7 @@ class HadesSiteConfig {
 
   metaData: Metadata = {
     // 网页标题
-    title: "Hacknerd",
+    title: "Hacknerd | Tech Blog",
     // 网页描述
     description: "A modern blog powered by Notion and Next.js",
     keywords: "Hacknerd,blog,Next.js,TypeScript,Node.js,JavaScript,TypeScript,React,Vue,Web,前端,博客",
