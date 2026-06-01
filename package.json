@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "dotenv -e .env -- next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -30,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "eslint-plugin-react": "^7.37.4",
+    "next-sitemap": "^4.2.3",
     "postcss": "^8",
     "postcss-import": "^16.1.0",
     "prettier": "^3.5.2",

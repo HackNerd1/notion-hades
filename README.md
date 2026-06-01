@@ -50,6 +50,7 @@ First, create a `.env` file with the following environment variables:
 NOTION_HOME_PAGE_ID=<your Home Page Id>
 NOTION_DATABASE_ID=<your Database Id>
 NOTION_API_KEY=<your Internal Integration Secret>
+SITE_URL=<your Site URL>
 ```
 
 See [How to get Env Variables](#how-to-get-env-variables) for details.
