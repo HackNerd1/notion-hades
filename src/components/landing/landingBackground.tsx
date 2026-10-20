@@ -10,7 +10,12 @@ export async function LandingBackground() {
   let siteInfo: PostModel | undefined = undefined;
   let error = "";
   try {
-    siteInfo = await (await notionApiGetHomePage()).json();
+    const response = await notionApiGetHomePage();
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.message || "Unable to load home page");
+    }
+    siteInfo = result;
   } catch (err: any) {
     error = err.message;
   }
