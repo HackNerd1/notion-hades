@@ -13,7 +13,7 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { id: string } }) {
+export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const id = (await params).id;
   const page: PageModel = await (await notionApiRetrievePage(id as string)).json();
 
