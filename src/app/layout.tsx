@@ -5,6 +5,7 @@ import { HADES_SITE_CONFIG } from "@/config/site.config";
 import { IconLoading } from "@/icons/loading";
 import { Suspense } from "react";
 import JsonLd from "@/components/JsonLd";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { generateWebsiteJsonLd } from "@/utils/jsonLd";
 
 const geistSans = Geist({
@@ -46,6 +47,8 @@ export default function RootLayout({
         >
           {children}
         </Suspense>
+
+        <SpeedInsights />
 
         {/* </ThemeProvider> */}
       </body>
