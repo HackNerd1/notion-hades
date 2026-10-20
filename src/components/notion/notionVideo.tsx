@@ -8,7 +8,7 @@ export function NotionVideo(props: BlockModel) {
 
   return (
     <figure className="mb-6">
-      <div className="relative overflow-hidden rounded-lg bg-gray-100 pt-[56.25%] dark:bg-gray-800">
+      <div className="relative overflow-hidden rounded-lg bg-gray-800 pt-[56.25%]">
         <iframe
           src={url}
           className="absolute inset-0 h-full w-full"
